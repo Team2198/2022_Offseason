@@ -13,7 +13,10 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    final static int JoystickX_Port = 0;
-    final static int JoystickY_Port = 1;
-
+    public final static int JoystickX_Port = 0;
+    public final static int JoystickY_Port = 1;
+    public final static int Left_One = 0;
+    public final static int Left_Two = 1;
+    public final static int Right_One = 2;
+    public final static int Right_Two = 3;
 }
