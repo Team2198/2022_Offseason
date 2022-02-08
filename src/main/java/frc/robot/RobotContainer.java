@@ -22,6 +22,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain;  
   
   private final XboxController xboxController;
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
@@ -37,6 +38,11 @@ public class RobotContainer {
   }
 
   public void get_val(){
+    driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
+
+  }
+
+  public void get_compressor(){
     driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
 
   }
