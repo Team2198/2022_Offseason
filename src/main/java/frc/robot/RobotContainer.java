@@ -24,10 +24,10 @@ public class RobotContainer {
   private final XboxController xboxController;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
+    // Configure the button bindingsd
     configureButtonBindings();
     this.xboxController = new XboxController(1);
-    this.driveTrain = new DriveTrain();
+    this.driveTrain = new DriveTrain();//
     //public double get_valY(){
       //return xboxController.getY(GenericHID.Hand.kRight);
     //}
