@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import frc.robot.subsystems.Intake;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,7 +18,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  
+  Intake intake;
+
   private final DriveTrain driveTrain;  
   
   private final XboxController xboxController;
@@ -40,6 +41,14 @@ public class RobotContainer {
     driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
 
   }
+public void pressButton(){
+ if (xboxController.getAButton() == true){
+  intake.setComp(true);
+ }
+  if (xboxController.getBButton() == true){
+    intake.setComp(false);
+ 
+}
 
   
 
