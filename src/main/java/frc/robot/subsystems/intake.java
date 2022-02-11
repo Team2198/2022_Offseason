@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 
 
 
@@ -30,7 +30,7 @@ public class Intake {
             else{
                 compressor.enableDigital();
             }
-            compressor.enableDigital();
+            
 
             
 
