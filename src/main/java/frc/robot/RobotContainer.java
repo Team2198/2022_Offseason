@@ -43,17 +43,11 @@ public class RobotContainer {
     driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
   }
 
-  public void get_val_comp(){
-    if (xboxController.getAButton()){
-      intake.setComp(true);
-    }
-    if (xboxController.getBButton()){
-      intake.setComp(false);
-    }
-   
-    
+  public void get_compressor(){
+    driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
 
   }
+
   
 
   /**
