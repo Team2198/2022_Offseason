@@ -41,7 +41,6 @@ public class RobotContainer {
 
   public void get_val(){
     driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
-
   }
 
   public void get_val_comp(){
