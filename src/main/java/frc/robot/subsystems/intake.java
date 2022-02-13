@@ -24,16 +24,11 @@ public class Intake {
             compressor.disable();
         }
         else{
-            if (compressor.enabled()){
-                solenoid.toggle();
-            }
-            else{
+            if (compressor.enabled() == false){
                 compressor.enableDigital();
-            }
+            }    
+            solenoid.toggle();
             
-
-            
-
         }
     }
 }
