@@ -47,9 +47,8 @@ public void pressButton(){
  }
   if (xboxController.getBButton() == true){
     intake.setComp(false);
- 
+ }
 }
-
   
 
   /**
