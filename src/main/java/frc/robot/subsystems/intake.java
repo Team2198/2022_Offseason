@@ -14,8 +14,8 @@ public class Intake extends SubsystemBase{
 
 
     }
-    public void setComp(){
-         boolean compStatus = compressor.enabled();
+    public void setComp(boolean compStatus){
+          compStatus = compressor.enabled();
          if (compStatus == true){
          compressor.disable();
          }
