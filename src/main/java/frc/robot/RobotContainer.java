@@ -10,6 +10,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -18,18 +19,23 @@ import frc.robot.subsystems.Elevator;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
   Intake intake;
   Elevator elevator;
 
+
   private final DriveTrain driveTrain;  
-  
+  private final Intake intake;
   private final XboxController xboxController;
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
     configureButtonBindings();
     this.xboxController = new XboxController(1);
-    this.driveTrain = new DriveTrain();//
+    this.driveTrain = new DriveTrain();
+    this.intake = new Intake();//
+
     //public double get_valY(){
       //return xboxController.getY(GenericHID.Hand.kRight);
     //}
@@ -40,6 +46,10 @@ public class RobotContainer {
 
   public void get_val(){
     driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
+  }
+
+  public void get_compressor(){
+    driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
 
   }
 public void pressButton(){
@@ -48,6 +58,7 @@ public void pressButton(){
  }
   if (xboxController.getBButton() == true){
     intake.setComp(false);
+
  }
 }
 public void PowerElevator(){
