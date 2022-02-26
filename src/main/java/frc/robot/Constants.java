@@ -27,4 +27,7 @@ public final class Constants {
     public final static int solenoid_chF = 0;
     public final static int solenoid_chR = 1;
 
+    public final static int  S_Right = 5;
+    public final static int S_Left = 6;
+
 }
