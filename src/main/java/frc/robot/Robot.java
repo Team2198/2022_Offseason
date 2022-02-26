@@ -8,6 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -20,7 +24,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   private Elevator elevator;
   private DriveTrain driveTrain;
-
+  private Compressor compressor; 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -29,6 +33,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     this.m_robotContainer = new RobotContainer();
     this.timer = new Timer();
     this.driveTrain = new DriveTrain();
@@ -63,21 +68,27 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    if (timer.advanceIfElapsed(6) == false){
+    
+
+  }
+
+  /** This function is called periodically during autonomous. */
+  @Override
+  public void autonomousPeriodic() {
+        
+    if (!timer.hasElapsed(6)){
       elevator.setEMotor();
     }
     else{
-      driveTrain.setMotor(-1, 0);
+      driveTrain.setMotor(1, 0);
     }
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
-  }
 
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {}
+
+  }
 
   @Override
   public void teleopInit() {

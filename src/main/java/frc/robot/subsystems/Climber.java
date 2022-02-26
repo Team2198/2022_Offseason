@@ -10,20 +10,24 @@ import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 
 /** Add your docs here. */
 public class Climber extends SubsystemBase{
-    DigitalInput limit_switch;
+    DigitalInput limit_switch_above;
     PWMSparkMax climb_motor;
-    
+    DigitalInput limit_switch_below;
+
     public Climber(){
-        this.limit_switch = new DigitalInput(1);
+        //Creating an instance for limit_swicth_above
+        this.limit_switch_above = new DigitalInput(1);
         this.climb_motor = new PWMSparkMax(1);
+        this.limit_switch_below = new DigitalInput(2);
     }
 
     public void climber_set(boolean direction){
-        if (direction && )
-        climb_motor.set(1);
+        if (direction && !limit_switch_above.get() ){
+            climb_motor.set(1);
+        }    
+
+        else if (!direction  && !limit_switch_below.get() ) {
+            climb_motor.set(1);
+        }
     }
-
-    
-    
-
 }
