@@ -6,7 +6,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.subsystems.constants;
+import frc.robot.Constants;
 
 
 
@@ -16,7 +16,7 @@ public class Intake {
   DoubleSolenoid solenoid;  
   public Intake(){
         this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
-        this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, constants.solenoid_chF, constants.SOLENOID_chR);
+        this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.solenoid_chF, Constants.solenoid_chR);
     }
 
     public void toggleComp(){
