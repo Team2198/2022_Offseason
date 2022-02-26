@@ -19,4 +19,5 @@ public final class Constants {
     public final static int Left_Two = 1;
     public final static int Right_One = 2;
     public final static int Right_Two = 3;
+    public final static int E_One = 4;
 }

@@ -9,26 +9,21 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 
 
-
 /** Add your docs here. */
 public class Intake {
-  Compressor compressor;    
+     
   DoubleSolenoid solenoid;  
   public Intake(){
-        this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+       
         this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
     }
 
     public void setComp(boolean comp_status){
         if (comp_status == false){
-            compressor.disable();
+            solenoid.set(Off);  
         }
         else{
-            if (compressor.enabled() == false){
-                compressor.enableDigital();
-            }    
             solenoid.toggle();
-            
         }
     }
 }
