@@ -33,10 +33,13 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+    //reset everything
+  
     this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     this.m_robotContainer = new RobotContainer();
     this.timer = new Timer();
     this.driveTrain = new DriveTrain();
+    timer.reset();
   }
 
   /**
