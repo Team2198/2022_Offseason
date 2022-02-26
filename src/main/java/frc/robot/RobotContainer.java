@@ -3,23 +3,17 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-<<<<<<< HEAD
-=======
 
 import javax.swing.plaf.TreeUI;
 
->>>>>>> c8b86e82b8441ff75eb428467ed435f09ceaa4e6
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-<<<<<<< HEAD
 
 
-=======
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
->>>>>>> c8b86e82b8441ff75eb428467ed435f09ceaa4e6
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
