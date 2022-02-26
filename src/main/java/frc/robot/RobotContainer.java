@@ -63,10 +63,10 @@ public class RobotContainer {
 
   public void pressButton(){
   if (xboxController.getAButton()){
-    intake.setComp(true); 
+    intake.toggleComp(); 
   }
   if (xboxController.getBButton()){
-    intake.setComp(false);    
+    intake.toggleComp();    
   }
  
   }
