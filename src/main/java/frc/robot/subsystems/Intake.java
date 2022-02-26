@@ -6,24 +6,42 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.Constants;
 
 
 
 /** Add your docs here. */
 public class Intake {
-     
+  Compressor compressor;    
   DoubleSolenoid solenoid;  
   public Intake(){
-       
-        this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 0, 1);
+        this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+        this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, constants.solenoid_chF, constants.SOLENOID_chR);
     }
 
-    public void setComp(boolean comp_status){
-        if (comp_status == false){
-            solenoid.set(Off);  
+    public void toggleComp(){
+        if (compressor.enabled() == false){
+            compressor.enableDigital();
         }
         else{
-            solenoid.toggle();
+            if (compressor.enabled() == true){
+                compressor.disable();
+            }
+        }
+    }
+
+    public void reset(){
+        solenoid.set(DoubleSolenoid.Value.kReverse);
+        toggleComp();
+    }
+
+    public void toggleIntake(){
+        DoubleSolenoid.Value open = solenoid.get();
+        if(open == DoubleSolenoid.Value.kForward || open == DoubleSolenoid.Value.kOff){
+            solenoid.set(DoubleSolenoid.Value.kReverse);
+        }
+        else if(open == DoubleSolenoid.Value.kReverse){
+            solenoid.set(DoubleSolenoid.Value.kForward);
         }
     }
 }
