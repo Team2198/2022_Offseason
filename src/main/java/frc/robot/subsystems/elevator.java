@@ -11,7 +11,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
 //
-public class Elevator extends SubsystemBase {
+public class elevator extends SubsystemBase {
     WPI_VictorSPX EOne;
     WPI_VictorSPX SRight;
     WPI_VictorSPX SLeft;
@@ -20,7 +20,7 @@ public class Elevator extends SubsystemBase {
     GenericHID genericHID;
     RobotContainer robotContainer;
     
-    public  Elevator(){
+    public  elevator(){
        this.EOne = new WPI_VictorSPX(Constants.E_One);
        this.SRight = new WPI_VictorSPX(Constants.S_Right);
        this.SLeft = new WPI_VictorSPX(Constants.S_Left);
