@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import javax.swing.plaf.TreeUI;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
@@ -20,7 +22,6 @@ import frc.robot.subsystems.Elevator;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  Intake intake;
   Elevator elevator;
 
 
@@ -63,11 +64,12 @@ public void pressButton(){
 }
 public void PowerElevator(){
   if (xboxController.getRightBumperPressed()== true){
-    elevator.setEMotar(0.5);
+    elevator.setEMotar(true);
    }
-  else 
-    elevator.setEMotar(0);
-   }
+  else if (xboxController.getLeftBumperPressed()== true){
+    elevator.setEMotar(false);
+  }
+}
 
   
 
