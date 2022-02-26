@@ -24,7 +24,7 @@ import frc.robot.subsystems.Elevator;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
-  Elevator elevator;
+
 
 
   private final DriveTrain driveTrain;  
@@ -58,21 +58,13 @@ public class RobotContainer {
   public void pressButton(){
   if (xboxController.getAButton()){
     intake.toggleComp(); 
-  }
+    }
   if (xboxController.getBButton()){
     intake.toggleComp();    
-  }
- 
-  }
-public void pressButton(){
- if (xboxController.getAButton() == true){
-  intake.setComp(true);
+    }
  }
-  if (xboxController.getBButton() == true){
-    intake.setComp(false);
 
- }
-}
+
 public void PowerElevator(){
   if (xboxController.getRightBumperPressed()== true){
     elevator.setEMotar(true);

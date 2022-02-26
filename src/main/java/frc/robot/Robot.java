@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
         
     if (!timer.hasElapsed(6)){
-      elevator.setEMotor();
+      elevator.setEMotar(true);
     }
     else{
       driveTrain.setMotor(1, 0);
