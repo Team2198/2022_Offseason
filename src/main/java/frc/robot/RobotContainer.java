@@ -3,12 +3,23 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+<<<<<<< HEAD
+=======
+
+import javax.swing.plaf.TreeUI;
+
+>>>>>>> c8b86e82b8441ff75eb428467ed435f09ceaa4e6
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
+<<<<<<< HEAD
 
 
+=======
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Elevator;
+>>>>>>> c8b86e82b8441ff75eb428467ed435f09ceaa4e6
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,7 +29,9 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  
+
+  Elevator elevator;
+
 
   private final DriveTrain driveTrain;  
   private final Intake intake;
@@ -57,6 +70,24 @@ public class RobotContainer {
   }
  
   }
+public void pressButton(){
+ if (xboxController.getAButton() == true){
+  intake.setComp(true);
+ }
+  if (xboxController.getBButton() == true){
+    intake.setComp(false);
+
+ }
+}
+public void PowerElevator(){
+  if (xboxController.getRightBumperPressed()== true){
+    elevator.setEMotar(true);
+   }
+  else if (xboxController.getLeftBumperPressed()== true){
+    elevator.setEMotar(false);
+  }
+}
+
   
   public void Climber_status(){
     double speed = xboxController.getRightTriggerAxis() - xboxController.getLeftTriggerAxis();
@@ -73,11 +104,7 @@ public class RobotContainer {
 
   }
 
-  public void PowerElevator(){
-    if (xboxController.getRightBumperPressed()== true){
-      elevator.setEMotor();
-    }
-  } 
+
 
 
   /**
