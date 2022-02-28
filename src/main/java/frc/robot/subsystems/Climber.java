@@ -23,11 +23,11 @@ public class Climber extends SubsystemBase{
 
     public void climber_set(boolean direction){
         if (direction && !limit_switch_above.get() ){
-            climb_motor.set(1);
+            climb_motor.set(0.2);
         }    
 
         else if (!direction  && !limit_switch_below.get() ) {
-            climb_motor.set(1);
-        }
+            climb_motor.set(0.2);
+        }   
     }
 }

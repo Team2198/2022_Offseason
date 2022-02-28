@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import javax.swing.plaf.TreeUI;
+
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.elevator;
+import frc.robot.subsystems.Elevator;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -31,7 +31,7 @@ public class RobotContainer {
   private final Intake intake;
   private final XboxController xboxController;
   private final Climber climber;
-  private final elevator elevator;
+  private final Elevator elevator;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
@@ -40,7 +40,7 @@ public class RobotContainer {
     this.driveTrain = new DriveTrain();
     this.intake = new Intake();
     this.climber = new Climber();
-    this.elevator = new elevator();
+    this.elevator = new Elevator();
     //
 
     //public double get_valY(){
@@ -67,10 +67,10 @@ public class RobotContainer {
 
 public void PowerElevator(){
   if (xboxController.getRightBumperPressed()== true){
-    elevator.setEMotar(true);
+    elevator.setEMotor(true);
    }
   else if (xboxController.getLeftBumperPressed()== true){
-    elevator.setEMotar(false);
+    elevator.setEMotor(false);
   }
 }
 

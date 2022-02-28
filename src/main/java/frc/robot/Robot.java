@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
   private Timer timer;
   private RobotContainer m_robotContainer;
-  private elevator elevator;
+  private Elevator elevator;
   private DriveTrain driveTrain;
   private Compressor compressor; 
   /**
@@ -80,7 +80,7 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
         
     if (!timer.hasElapsed(6)){
-      elevator.setEMotar(true);
+      elevator.setEMotor(true);
     }
     else{
       driveTrain.setMotor(1, 0);
