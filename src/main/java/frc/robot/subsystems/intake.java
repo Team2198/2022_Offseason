@@ -18,7 +18,6 @@ public class Intake {
   public Intake(){
         this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
         this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.solenoid_chF, Constants.solenoid_chR);
-        this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
     }
 
     public void reset(){

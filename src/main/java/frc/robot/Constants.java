@@ -31,9 +31,10 @@ public final class Constants {
 
     // Elevator
     public final static int E_One = 8;
+    
 
     // Climber
-    public final static int Climber = 11;
+    public final static int Climb_Motor = 11;
 
     // Intake
     public final static int Intake = 12;    

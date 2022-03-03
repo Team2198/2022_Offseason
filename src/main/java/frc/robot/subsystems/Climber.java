@@ -5,19 +5,20 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import frc.robot.Constants;
 
 /** Add your docs here. */
 public class Climber extends SubsystemBase{
     DigitalInput limit_switch_above;
-    PWMSparkMax climb_motor;
+    CANSparkMax climb_motor;
     DigitalInput limit_switch_below;
 
     public Climber(){
         //Creating an instance for limit_swicth_above
         this.limit_switch_above = new DigitalInput(1);
-        this.climb_motor = new PWMSparkMax(1);
+        this.climb_motor = new CANSparkMax(Constants.Climb_Motor, MotorType.kBrushed);
         this.limit_switch_below = new DigitalInput(2);
     }
 
