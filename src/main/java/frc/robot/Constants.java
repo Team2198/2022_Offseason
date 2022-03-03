@@ -14,20 +14,34 @@ package frc.robot;
  */
 public final class Constants {
 
-    // Drive Train
-    public final static int JoystickX_Port = 0;
+    // Controller
+    public final static int Xbox_Controller= 0;
     public final static int JoystickY_Port = 1;
-    public final static int Left_One = 0;
-    public final static int Left_Two = 1;
-    public final static int Right_One = 2;
-    public final static int Right_Two = 3;
-    public final static int E_One = 4;
-    
+
+    // Drive Train
+        // Right
+    public final static int Left_One = 2;
+    public final static int Left_Two = 3;
+    public final static int Left_Three = 4;
+        
+        // Left
+    public final static int Right_One = 5;
+    public final static int Right_Two = 6;
+    public final static int Right_Three = 7;
+
+    // Elevator
+    public final static int E_One = 8;
+
+    // Climber
+    public final static int Climber = 11;
+
     // Intake
+    public final static int Intake = 12;    
+
+    // Shooter
+    public final static int  S_One = 9;
+    public final static int S_Two = 10;
+        // Pneumatics
     public final static int solenoid_chF = 0;
     public final static int solenoid_chR = 1;
-
-    public final static int  S_Right = 5;
-    public final static int S_Left = 6;
-
 }

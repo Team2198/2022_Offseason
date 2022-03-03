@@ -11,6 +11,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private Intake intake;
   private Timer timer;
   private RobotContainer m_robotContainer;
   private Elevator elevator;
@@ -35,11 +37,12 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     //reset everything
   
-    this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
+    
     this.m_robotContainer = new RobotContainer();
     this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     timer.reset();
+    this.intake.reset();
   }
 
   /**
@@ -99,9 +102,9 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
-    }
+    //if (m_autonomousCommand != null) {
+      //m_autonomousCommand.cancel();
+    //}
     
     
   }
@@ -109,10 +112,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_robotContainer.get_val();
-    m_robotContainer.pressButton();
-    m_robotContainer.Climber_status();
-    m_robotContainer.PowerElevator();
+    //m_robotContainer.get_val();
+    //m_robotContainer.pressButton();
+    //m_robotContainer.Climber_status();
+    //m_robotContainer.PowerElevator();
   }
 
   @Override

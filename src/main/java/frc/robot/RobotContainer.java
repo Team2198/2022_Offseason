@@ -36,7 +36,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindingsd
     configureButtonBindings();
-    this.xboxController = new XboxController(1);
+    this.xboxController = new XboxController(Constants.Xbox_Controller);
     this.driveTrain = new DriveTrain();
     this.intake = new Intake();
     this.climber = new Climber();
@@ -55,23 +55,18 @@ public class RobotContainer {
     driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
   }
 
-  public void pressButton(){
-  if (xboxController.getAButton()){
-    intake.toggleComp(); 
-    }
-  if (xboxController.getBButton()){
-    intake.toggleComp();    
-    }
- }
 
-
-public void PowerElevator(){
+  public void PowerElevator(){
+  
   if (xboxController.getRightBumperPressed()== true){
+    intake.toggleIntake();
     elevator.setEMotor(true);
    }
   else if (xboxController.getLeftBumperPressed()== true){
+    intake.toggleIntake();
     elevator.setEMotor(false);
   }
+  
 }
 
   
