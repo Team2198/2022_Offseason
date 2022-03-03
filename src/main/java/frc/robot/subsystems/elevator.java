@@ -30,13 +30,15 @@ public class Elevator extends SubsystemBase {
    }
    public  void setEMotor(boolean b){
       if (b == true){
+         intake.set(1);
          EOne.set(1);
          SRight.set(1);
          SLeft.set(1);
       }
      if (b == false){
          EOne.set(1);
-         intake.set(1);
+         SRight.set(1);
+         SLeft.set(1);
          
      }
    
