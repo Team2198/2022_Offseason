@@ -30,6 +30,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain;  
   private final Intake intake;
   private final XboxController xboxController;
+  private final XboxController xboxController2;
   private final Climber climber;
   private final Elevator elevator;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -41,6 +42,7 @@ public class RobotContainer {
     this.intake = new Intake();
     this.climber = new Climber();
     this.elevator = new Elevator();
+    this.xboxController2 = new XboxController(1);
     //
 
     //public double get_valY(){
@@ -58,14 +60,13 @@ public class RobotContainer {
 
   public void PowerElevator(){
   
-  if (xboxController.getRightBumperPressed()== true){
+  if (xboxController2.getLeftBumperPressed()){
     intake.toggleIntake();
-    elevator.setEMotor(true);
+    
+    
    }
-  else if (xboxController.getLeftBumperPressed()== true){
-    intake.toggleIntake();
-    elevator.setEMotor(false);
-  }
+  elevator.setEMotor(true, xboxController2.getRightTriggerAxis());
+  elevator.setEMotor(false, xboxController.getRightTriggerAxis());
   
 }
 
