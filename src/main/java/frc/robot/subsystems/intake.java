@@ -10,19 +10,29 @@ import frc.robot.Constants;
 
 
 
-
 /** Add your docs here. */
 public class Intake {
-  private Compressor compressor;    
+  Compressor compressor;    
   DoubleSolenoid solenoid;  
   public Intake(){
         this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
         this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.solenoid_chF, Constants.solenoid_chR);
     }
 
+    public void toggleComp(){
+        if (compressor.enabled() == false){
+            compressor.enableDigital();
+        }
+        else{
+            if (compressor.enabled() == true){
+                compressor.disable();
+            }
+        }
+    }
+
     public void reset(){
         solenoid.set(DoubleSolenoid.Value.kReverse);
-        compressor.enableDigital();
+        toggleComp();
     }
 
     public void toggleIntake(){

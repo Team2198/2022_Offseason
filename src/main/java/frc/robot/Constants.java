@@ -34,14 +34,15 @@ public final class Constants {
     
 
     // Climber
-    public final static int Climb_Motor = 11;
+    public final static int Climb_Motor = 10;
 
     // Intake
-    public final static int Intake = 12;    
+    public final static int Intake = 9;    
 
     // Shooter
-    public final static int  S_One = 9;
-    public final static int S_Two = 10;
+    public final static int  S_One = 12;
+    public final static int S_Two = 11;
+    
         // Pneumatics
     public final static int solenoid_chF = 0;
     public final static int solenoid_chR = 1;

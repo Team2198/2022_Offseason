@@ -7,12 +7,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Timer;
-import frc.robot.subsystems.*;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Intake;
-
+import frc.robot.subsystems.DriveTrain;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -20,13 +21,12 @@ import frc.robot.subsystems.Intake;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
-  private Intake intake;
-  private Timer timer;
-  private RobotContainer m_robotContainer;
-  private Elevator elevator;
-  private DriveTrain driveTrain;
-  private Compressor compressor; 
+    Command m_autonomousCommand;
+    Timer timer;
+    RobotContainer m_robotContainer;
+    DriveTrain driveTrain;
+    
+  
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -36,13 +36,9 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     //reset everything
-  
-    
-    this.m_robotContainer = new RobotContainer();
     this.timer = new Timer();
+    this.m_robotContainer = new RobotContainer();
     this.driveTrain = new DriveTrain();
-    timer.reset();
-    this.intake.reset();
   }
 
   /**
@@ -65,7 +61,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -74,20 +72,35 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    
-
+    timer.stop();
+    timer.reset();
+    SmartDashboard.putNumber("curr timer", timer.get());
+    timer.start();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-        
-    if (!timer.hasElapsed(2)){
-      elevator.setEMotor(false, 1);
+    SmartDashboard.putString("bye", "hello");
+    //m_robotContainer.reset();
+    /* if (!this.timer.hasElapsed(6)){ // change this for forward
+      SmartDashboard.putNumber("next timer", timer.get());
+      m_robotContainer.elevator();
     }
-    else{
-      driveTrain.setMotor(1, 0);
-    }
+    else{ */
+      
+      /* m_robotContainer.setZero(true);
+      
+      double timePassed = timer.get() - 6;\
+      SmartDashboard.putNumber("seconds", timePassed);
+      if(timePassed <= 1.5){ // change this for back
+        driveTrain.setMotor(-0.7, 0);
+      }
+      else{
+        driveTrain.setMotor(0, 0);
+        timer.stop();
+      } */
+    //}
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -104,6 +117,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     //if (m_autonomousCommand != null) {
       //m_autonomousCommand.cancel();
+
     //}
     
     
@@ -112,10 +126,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    //m_robotContainer.get_val();
-    //m_robotContainer.pressButton();
-    //m_robotContainer.Climber_status();
-    //m_robotContainer.PowerElevator();
+    m_robotContainer.get_val();
+    m_robotContainer.Climber_status();
+    m_robotContainer.PowerElevator();
+
   }
 
   @Override

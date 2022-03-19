@@ -8,6 +8,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -53,39 +54,81 @@ public class RobotContainer {
     //}
   }
 
-  public void get_val(){
-    driveTrain.setMotor(xboxController.getRightY(), xboxController.getLeftX());
+  public void reset(){
+    this.intake.reset();
+    this.elevator.setEMotor(false);
+    this.elevator.setEle(0);
+    this.elevator.setSh(false);
   }
+
+  public void setZero(boolean c){
+    elevator.setEle(0);
+  }
+
+  public void get_val(){
+    driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX());
+  }
+
+  public void elevator(){
+    elevator.setEle(0.6);
+    elevator.setSh(true);
+    SmartDashboard.putBoolean("elevator on", true);
+  }
+
 
 
   public void PowerElevator(){
   
-  if (xboxController2.getLeftBumperPressed()){
+  if (xboxController.getLeftBumperPressed()){
     intake.toggleIntake();
-    
-    
    }
-  elevator.setEMotor(true, xboxController2.getRightTriggerAxis());
-  elevator.setEMotor(false, xboxController.getRightTriggerAxis());
+
+  if (xboxController.getRightBumper()){
+    intake.toggleIntake();
+  }
+  
+  if (xboxController.getAButton()){
+    elevator.setEMotor(true);
+  }
+  if (xboxController.getBButton()){
+    elevator.setEMotor(false);
+  }
+
+  if (xboxController2.getAButton()){
+    elevator.setSh(true);
+  }
+  else if(xboxController2.getXButton()){
+    elevator.setSh(false);
+  }
+
+  
+  elevator.setEle(xboxController2.getRightY()*0.60);
+  
+  
+  
+  
+
+  
+
+
+  //elevator.setEMotor(true, xboxController.getRightTriggerAxis());
+  //elevator.setEMotor(false, xboxController2.getLeftTriggerAxis());
   
 }
 
   
   public void Climber_status(){
-    double speed = xboxController.getRightTriggerAxis() - xboxController.getLeftTriggerAxis();
+    double speed = xboxController2.getLeftY();
     if (speed > 0){
-      climber.climber_set(true);
+      climber.climber_set(speed, true);
     }
 
     if (speed < 0){
-      climber.climber_set(false);
+      climber.climber_set(speed, false);
     }
   }
 
-  public void autonomous(){
-
-  }
-
+  
 
 
 

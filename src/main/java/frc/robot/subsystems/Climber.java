@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
@@ -12,23 +14,32 @@ import frc.robot.Constants;
 /** Add your docs here. */
 public class Climber extends SubsystemBase{
     DigitalInput limit_switch_above;
-    CANSparkMax climb_motor;
+    WPI_VictorSPX climb_motor;
     DigitalInput limit_switch_below;
 
     public Climber(){
         //Creating an instance for limit_swicth_above
         this.limit_switch_above = new DigitalInput(1);
-        this.climb_motor = new CANSparkMax(Constants.Climb_Motor, MotorType.kBrushed);
+        this.climb_motor = new WPI_VictorSPX(Constants.Climb_Motor);
         this.limit_switch_below = new DigitalInput(2);
     }
 
-    public void climber_set(boolean direction){
-        if (direction && !limit_switch_above.get() ){
+    public void climber_set(double speed, boolean direction){
+        if (direction && !limit_switch_above.get()){
             climb_motor.set(0.2);
         }    
 
-        else if (!direction  && !limit_switch_below.get() ) {
-            climb_motor.set(0.2);
-        }   
+        else{
+            climb_motor.set(0);
+        }
+
+
+        if (!direction  && !limit_switch_below.get()) {
+            climb_motor.set(speed);
+        }
+        
+        else{
+            climb_motor.set(0);
+        }
     }
 }
