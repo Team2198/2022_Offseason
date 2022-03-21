@@ -28,14 +28,19 @@ public class Climber extends SubsystemBase{
         if (direction && !limit_switch_above.get()){
             climb_motor.set(0.2);
         }    
-
         else{
             climb_motor.set(0);
         }
 
+       
 
-        if (!direction  && !limit_switch_below.get()) {
-            climb_motor.set(speed);
+
+      
+
+
+        if (!direction  && !limit_switch_below.get() ) {
+            climb_motor.set(0.2);
+
         }
         
         else{

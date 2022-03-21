@@ -1,5 +1,9 @@
 package frc.robot.subsystems;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import edu.wpi.first.wpilibj.XboxController;
+
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
@@ -26,6 +30,7 @@ public class Elevator extends SubsystemBase {
    public  Elevator(){
       
       this.EOne = new WPI_VictorSPX(Constants.E_One);
+
       this.SRight = new CANSparkMax(Constants.S_One, MotorType.kBrushless);
       this.SLeft = new CANSparkMax(Constants.S_Two, MotorType.kBrushed);
       this.intake = new WPI_VictorSPX(Constants.Intake);
@@ -37,14 +42,10 @@ public class Elevator extends SubsystemBase {
    }
    public void setEMotor(boolean b){
       if (b){
-         intake.set(1);
-        
-      }
-      else{
-         intake.set(0);
-      }
-   
+      
+      //dkjfklfjdkl
    }
+  
 
    public void setSh(boolean b){
       if (b){
@@ -65,6 +66,27 @@ public class Elevator extends SubsystemBase {
       if (velocity > 0.5){
          EOne.set(speed);   
       } 
+   }
+
+
+     if (b == false){
+         SmartDashboard.putBoolean("yes", true);
+         SRight.set(1);
+         SLeft.set(1);
+         
+     }
+   
+   }
+
+   public void setZero(boolean b){
+      if (b == true){
+        intake.set(0);
+        EOne.set(0);
+      }
+      if (b == false){
+        SRight.set(0);
+        SLeft.set(0);
+      }
    }
 
 }

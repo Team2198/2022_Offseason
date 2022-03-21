@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Timer;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Elevator;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -25,7 +26,13 @@ public class Robot extends TimedRobot {
     Timer timer;
     RobotContainer m_robotContainer;
     DriveTrain driveTrain;
-    
+  
+  private Command m_autonomousCommand;
+  private Timer timer;
+  private RobotContainer m_robotContainer;
+  private DriveTrain driveTrain;
+  private Elevator elevator;
+
   
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,9 +43,16 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     //reset everything
-    this.timer = new Timer();
+
+  
+    
     this.m_robotContainer = new RobotContainer();
+    //this.timer = new Timer();
     this.driveTrain = new DriveTrain();
+    m_robotContainer.reset();
+    //timer.reset();
+    
+
   }
 
   /**
@@ -81,12 +95,13 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+
     SmartDashboard.putString("bye", "hello");
     //m_robotContainer.reset();
     /* if (!this.timer.hasElapsed(6)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       m_robotContainer.elevator();
-    }
+    
     else{ */
       
       /* m_robotContainer.setZero(true);
@@ -129,6 +144,9 @@ public class Robot extends TimedRobot {
     m_robotContainer.get_val();
     m_robotContainer.Climber_status();
     m_robotContainer.PowerElevator();
+
+
+
 
   }
 

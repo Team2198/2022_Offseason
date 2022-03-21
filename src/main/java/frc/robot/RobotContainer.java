@@ -63,6 +63,7 @@ public class RobotContainer {
 
   public void setZero(boolean c){
     elevator.setEle(0);
+
   }
 
   public void get_val(){
@@ -82,6 +83,7 @@ public class RobotContainer {
   if (xboxController.getLeftBumperPressed()){
     intake.toggleIntake();
    }
+
 
   if (xboxController.getRightBumper()){
     intake.toggleIntake();
@@ -107,6 +109,7 @@ public class RobotContainer {
   
   
   
+
 
   
 

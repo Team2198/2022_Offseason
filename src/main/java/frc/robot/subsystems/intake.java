@@ -3,8 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import frc.robot.Constants;
 
@@ -12,27 +12,27 @@ import frc.robot.Constants;
 
 /** Add your docs here. */
 public class Intake {
-  Compressor compressor;    
+  
+
   DoubleSolenoid solenoid;  
+
+
   public Intake(){
-        this.compressor = new Compressor(PneumaticsModuleType.CTREPCM);
-        this.solenoid = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.solenoid_chF, Constants.solenoid_chR);
+        
+        
+       this.solenoid = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 0, 1);
     }
 
-    public void toggleComp(){
-        if (compressor.enabled() == false){
-            compressor.enableDigital();
-        }
-        else{
-            if (compressor.enabled() == true){
-                compressor.disable();
-            }
-        }
-    }
+
 
     public void reset(){
+
         solenoid.set(DoubleSolenoid.Value.kReverse);
-        toggleComp();
+        
+
+        SmartDashboard.setDefaultBoolean("hello", true);
+        //solenoid.set(DoubleSolenoid.Value.kReverse);
+
     }
 
     public void toggleIntake(){
