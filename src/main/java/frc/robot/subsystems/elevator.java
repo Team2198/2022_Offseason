@@ -41,7 +41,14 @@ public class Elevator extends SubsystemBase {
       //dkjfklfjdkl
    }
    public void setEMotor(boolean b){
-      if (b){
+      if (b == true){
+         intake.set(1);
+      }
+     if (b == false){
+         
+         intake.set(1);
+         
+     }
       
       //dkjfklfjdkl
    }
@@ -49,7 +56,6 @@ public class Elevator extends SubsystemBase {
 
    public void setSh(boolean b){
       if (b){
-        
         SRight.set(0.6);
         SLeft.set(0.6);
         
@@ -68,15 +74,12 @@ public class Elevator extends SubsystemBase {
       } 
    }
 
-
-     if (b == false){
-         SmartDashboard.putBoolean("yes", true);
-         SRight.set(1);
-         SLeft.set(1);
-         
-     }
    
-   }
+
+
+     
+   
+   
 
    public void setZero(boolean b){
       if (b == true){
