@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.io.Console;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.revrobotics.CANSparkMax;
@@ -25,26 +28,20 @@ public class Climber extends SubsystemBase{
     }
 
     public void climber_set(double speed, boolean direction){
-        if (direction && !limit_switch_above.get()){
-            climb_motor.set(0.2);
+        //SmartDashboard.putBoolean("Limit Switch Below", limit_switch_below.get());
+        //SmartDashboard.putBoolean("Limit Switch above", limit_switch_above.get());
+        if (direction && limit_switch_above.get()){
+            climb_motor.set(speed);
         }    
-        else{
+        else if(direction && !limit_switch_above.get()){
             climb_motor.set(0);
         }
-
-       
-
-
-      
-
-
-        if (!direction  && !limit_switch_below.get() ) {
-            climb_motor.set(0.2);
+       else if (!direction  && limit_switch_below.get()) {
+            climb_motor.set(speed);
 
         }
-        
-        else{
+        else if(!direction  && !limit_switch_below.get()){
             climb_motor.set(0);
-        }
+        } 
     }
 }

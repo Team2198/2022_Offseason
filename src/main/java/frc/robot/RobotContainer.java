@@ -67,44 +67,73 @@ public class RobotContainer {
   }
 
   public void get_val(){
-    driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX());
+    driveTrain.setMotor(xboxController.getLeftY()*0.9, xboxController.getRightY());
   }
 
   public void elevator(){
-    elevator.setEle(0.6);
+    elevator.setEle(0.8);
     elevator.setSh(true);
     SmartDashboard.putBoolean("elevator on", true);
   }
 
+  public void trig_shooter(){
+    if(xboxController2.getRightTriggerAxis()> 0){
+      elevator.setSh(true);
+    }
+
+    else{
+      elevator.setSh(false);
+    }
+    
+  }
 
 
   public void PowerElevator(){
   
   if (xboxController.getLeftBumperPressed()){
-    intake.toggleIntake();
+    
+    intake.toggleIntake(false);
+    elevator.setEMotor(true);
+    
    }
 
 
   if (xboxController.getRightBumper()){
-    intake.toggleIntake();
+    elevator.setEMotor(false);
+    intake.toggleIntake(true);
   }
   
   if (xboxController.getAButton()){
-    elevator.setEMotor(true);
-  }
+    if(intake.getSol() == true){
+      elevator.setEMotor(true);
+    }
+  } 
   if (xboxController.getBButton()){
     elevator.setEMotor(false);
   }
 
-  if (xboxController2.getAButton()){
+  /* if (xboxController2.getAButton()){
     elevator.setSh(true);
-  }
-  else if(xboxController2.getXButton()){
+  } */
+  if(xboxController2.getXButton()){
     elevator.setSh(false);
+    elevator.revert_setSh(false);
   }
 
+  if(xboxController2.getBButton()){
+    elevator.revert_setSh(true);
+  }
+
+  if (xboxController2.getLeftBumper()){
+    elevator.revert_setSh(true);
+  }
+
+  if(xboxController2.getRightBumper()){
+    elevator.setSh(false);
+    elevator.revert_setSh(false);
+  }
   
-  elevator.setEle(xboxController2.getRightY()*0.60);
+  elevator.setEle(xboxController2.getRightY()*0.80);
   
   
   
@@ -121,12 +150,12 @@ public class RobotContainer {
 
   
   public void Climber_status(){
-    double speed = xboxController2.getLeftY();
-    if (speed > 0){
+    double speed = xboxController2.getLeftY()*0.6;
+    if (speed >= 0){
       climber.climber_set(speed, true);
     }
 
-    if (speed < 0){
+    if (speed <= 0){
       climber.climber_set(speed, false);
     }
   }

@@ -20,7 +20,7 @@ public class Intake {
   public Intake(){
         
         
-       this.solenoid = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 0, 1);
+       this.solenoid = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 1, 0);
     }
 
 
@@ -32,15 +32,24 @@ public class Intake {
 
         SmartDashboard.setDefaultBoolean("hello", true);
         //solenoid.set(DoubleSolenoid.Value.kReverse);
-
     }
+    public boolean getSol(){ // true if open
+        if(solenoid.get() == DoubleSolenoid.Value.kForward){
+            return true;
+        }
+        else if(solenoid.get() == DoubleSolenoid.Value.kReverse){
+            return false;
+        }
+        else{
+            return false;
+        }
+    }
+    public void toggleIntake(boolean direction){
 
-    public void toggleIntake(){
-        DoubleSolenoid.Value open = solenoid.get();
-        if(open == DoubleSolenoid.Value.kForward || open == DoubleSolenoid.Value.kOff){
+        if(direction){
             solenoid.set(DoubleSolenoid.Value.kReverse);
         }
-        else if(open == DoubleSolenoid.Value.kReverse){
+        else{
             solenoid.set(DoubleSolenoid.Value.kForward);
         }
     }

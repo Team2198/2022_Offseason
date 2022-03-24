@@ -23,6 +23,8 @@ public final class Constants {
     public final static int Left_One = 2;
     public final static int Left_Two = 3;
     public final static int Left_Three = 4;
+    public final static double Ldrive = 0.9;
+    public final static double Rdrive = 1;
         
         // Left
     public final static int Right_One = 5;
@@ -46,4 +48,5 @@ public final class Constants {
         // Pneumatics
     public final static int solenoid_chF = 0;
     public final static int solenoid_chR = 1;
+
 }

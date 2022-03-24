@@ -27,45 +27,49 @@ public class Elevator extends SubsystemBase {
    RobotContainer robotContainer;
    RelativeEncoder leftEncoder;
    
-   public  Elevator(){
+   public Elevator(){
       
       this.EOne = new WPI_VictorSPX(Constants.E_One);
 
       this.SRight = new CANSparkMax(Constants.S_One, MotorType.kBrushless);
-      this.SLeft = new CANSparkMax(Constants.S_Two, MotorType.kBrushed);
+      this.SLeft = new CANSparkMax(Constants.S_Two, MotorType.kBrushless);
       this.intake = new WPI_VictorSPX(Constants.Intake);
       this.intake.setInverted(true);
       this.SLeft.setInverted(true);
-      this.leftEncoder = SLeft.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 4096);
-      
-      //dkjfklfjdkl
-   }
-   public void setEMotor(boolean b){
-      if (b == true){
-         intake.set(1);
-      }
-     if (b == false){
-         
-         intake.set(1);
-         
-     }
+      this.leftEncoder = SLeft.getEncoder(SparkMaxRelativeEncoder.Type.kHallSensor, 42);
       
       //dkjfklfjdkl
    }
   
+  
+   public void setEMotor(boolean b){
+      if (b == true){
+         intake.set(0.7);
+      }
+     if (!b){
+         intake.set(0);
+     }
+   }
 
    public void setSh(boolean b){
       if (b){
-        SRight.set(0.6);
-        SLeft.set(0.6);
+        SRight.set(0.4);
+        SLeft.set(0.4);
         
       }
       else{
          SLeft.set(0);
          SRight.set(0);
       }
- }  
+   }  
 
+      
+
+
+   public void trig_Sh(double speed){
+        SRight.set(speed);
+        SLeft.set(speed);
+   }
    public void setEle(double speed){
       leftEncoder.setVelocityConversionFactor(6*Math.PI);
       double velocity = leftEncoder.getVelocityConversionFactor();
@@ -73,6 +77,18 @@ public class Elevator extends SubsystemBase {
          EOne.set(speed);   
       } 
    }
+
+   public void revert_setSh(boolean b){
+      if (b){
+        SRight.set(-0.2);
+        SLeft.set(-0.2);
+        
+      }
+      else{
+         SLeft.set(0);
+         SRight.set(0);
+      }
+   }  
 
    
 

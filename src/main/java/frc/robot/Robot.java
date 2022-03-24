@@ -28,7 +28,6 @@ public class Robot extends TimedRobot {
   private Timer timer;
   private RobotContainer m_robotContainer;
   private DriveTrain driveTrain;
-  private Elevator elevator;
 
   
   /**
@@ -40,14 +39,11 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     //reset everything
-
-  
-    
     this.m_robotContainer = new RobotContainer();
-    //this.timer = new Timer();
+    this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
-    //timer.reset();
+    timer.reset();
     
 
   }
@@ -93,27 +89,27 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
-    SmartDashboard.putString("bye", "hello");
-    //m_robotContainer.reset();
-    /* if (!this.timer.hasElapsed(6)){ // change this for forward
+    SmartDashboard.putString("\bye", "hello");
+    m_robotContainer.reset();
+    if (!this.timer.hasElapsed(6)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       m_robotContainer.elevator();
-    
-    else{ */
+    }
+    else{ 
       
-      /* m_robotContainer.setZero(true);
+      m_robotContainer.setZero(true);
       
-      double timePassed = timer.get() - 6;\
+      double timePassed = timer.get() - 6;
       SmartDashboard.putNumber("seconds", timePassed);
       if(timePassed <= 1.5){ // change this for back
-        driveTrain.setMotor(-0.7, 0);
+        driveTrain.setMotor(0.6, 0);//gets inverted
       }
       else{
         driveTrain.setMotor(0, 0);
         timer.stop();
-      } */
-    //}
-    // schedule the autonomous command (example)
+      } 
+    }
+    //schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -123,14 +119,17 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
+    
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    //if (m_autonomousCommand != null) {
-      //m_autonomousCommand.cancel();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
 
-    //}
+    }
+
+    m_robotContainer.reset();
     
     
   }
@@ -139,9 +138,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.get_val();
+    if (timer.hasElapsed(121)){
+      m_robotContainer.Climber_status();
+    } 
     m_robotContainer.Climber_status();
     m_robotContainer.PowerElevator();
-
+    m_robotContainer.trig_shooter();
 
 
 

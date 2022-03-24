@@ -45,7 +45,7 @@ public class DriveTrain extends SubsystemBase {
     
     
     public void setMotor(double y, double x){
-      differentialDrive.arcadeDrive(filter.calculate(y), filter.calculate(-x), true);
+      differentialDrive.tankDrive(y, x);
     }
     
 
