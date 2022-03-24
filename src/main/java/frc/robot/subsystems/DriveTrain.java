@@ -5,6 +5,7 @@ import edu.wpi.first.math.filter.SlewRateLimiter;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 
 
@@ -18,7 +19,7 @@ public class DriveTrain extends SubsystemBase {
     WPI_TalonSRX rightThree;      
     MotorControllerGroup right;
     DifferentialDrive differentialDrive;
-    SlewRateLimiter filter;
+    //SlewRateLimiter filter;
 
 
 
@@ -29,7 +30,7 @@ public class DriveTrain extends SubsystemBase {
         this.rightOne = new WPI_TalonSRX(Constants.Right_One);
         this.rightTwo = new WPI_TalonSRX(Constants.Right_Two);
         this.rightThree = new WPI_TalonSRX(Constants.Right_Three);
-        this.filter = new SlewRateLimiter(0.5);
+        //this.filter = new SlewRateLimiter(0.5);
         
         this.leftOne.setNeutralMode(NeutralMode.Coast);
         this.leftTwo.setNeutralMode(NeutralMode.Coast);
@@ -45,7 +46,11 @@ public class DriveTrain extends SubsystemBase {
     
     
     public void setMotor(double y, double x){
-      differentialDrive.tankDrive(y, x);
+      //differentialDrive.arcadeDrive(y, -x, true);
+      differentialDrive.curvatureDrive(y, -x, true);
+      SmartDashboard.putNumber("Y val", y);
+      SmartDashboard.putNumber("X val", x);
+      //differentialDrive.tankDrive(y, x);
     }
     
 
