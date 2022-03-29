@@ -47,7 +47,17 @@ public class DriveTrain extends SubsystemBase {
     
     public void setMotor(double y, double x){
       //differentialDrive.arcadeDrive(y, -x, true);
-      differentialDrive.curvatureDrive(y, -x, true);
+      /*if(y < 0){
+        differentialDrive.curvatureDrive(y, -x, false);  
+      }
+      else{
+        double xRef = -x;
+        if(x > .85){
+          x = .85;
+        }
+        differentialDrive.curvatureDrive(y, xRef+0.15, false);
+      }*/
+      differentialDrive.arcadeDrive(y, -x, false);
       SmartDashboard.putNumber("Y val", y);
       SmartDashboard.putNumber("X val", x);
       //differentialDrive.tankDrive(y, x);

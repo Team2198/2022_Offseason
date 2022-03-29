@@ -54,6 +54,16 @@ public class RobotContainer {
     //}
   }
 
+  public void auto_drive(boolean yes){
+    if (yes){
+      driveTrain.setMotor(0.6, 0);
+    }
+    else{
+      driveTrain.setMotor(0, 0);
+    }
+    
+  }
+
   public void reset(){
     this.intake.reset();
     this.elevator.setEMotor(false);
@@ -63,6 +73,7 @@ public class RobotContainer {
 
   public void setZero(boolean c){
     elevator.setEle(0);
+    elevator.setSh(false);
 
   }
 
@@ -72,17 +83,19 @@ public class RobotContainer {
 
   public void elevator(){
     elevator.setEle(0.8);
-    elevator.setSh(true);
+    elevator.auto_shoot();
     SmartDashboard.putBoolean("elevator on", true);
   }
 
   public void trig_shooter(){
-    if(xboxController2.getRightTriggerAxis()> 0){
+    if(xboxController2.getRightTriggerAxis()> 0.1){
       elevator.setSh(true);
     }
 
     else{
       elevator.setSh(false);
+      SmartDashboard.putBoolean("not pressing trig", true);
+      
     }
     
   }
@@ -122,10 +135,12 @@ public class RobotContainer {
 
   if(xboxController2.getBButton()){
     elevator.revert_setSh(true);
+    SmartDashboard.putBoolean("pressed b", true);
   }
 
   if (xboxController2.getLeftBumper()){
     elevator.revert_setSh(true);
+    SmartDashboard.putBoolean("pressed left", true);
   }
 
   if(xboxController2.getRightBumper()){

@@ -101,12 +101,14 @@ public class Robot extends TimedRobot {
       
       double timePassed = timer.get() - 6;
       SmartDashboard.putNumber("seconds", timePassed);
-      if(timePassed <= 1.5){ // change this for back
+      if(timePassed <= 0.75){ // change this for back
+        //m_robotContainer.auto_drive(true);
         driveTrain.setMotor(0.6, 0);//gets inverted
       }
       else{
+        //m_robotContainer.auto_drive(false);
         driveTrain.setMotor(0, 0);
-        timer.stop();
+        
       } 
     }
     //schedule the autonomous command (example)
@@ -138,9 +140,9 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_robotContainer.get_val();
-    if (timer.hasElapsed(121)){
+    /* if (timer.hasElapsed(121)){
       m_robotContainer.Climber_status();
-    } 
+    }  */
     m_robotContainer.Climber_status();
     m_robotContainer.PowerElevator();
     m_robotContainer.trig_shooter();
