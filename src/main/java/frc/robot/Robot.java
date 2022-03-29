@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
-    SmartDashboard.putString("\bye", "hello");
+    SmartDashboard.putString("bye", "hello");
     m_robotContainer.reset();
     if (!this.timer.hasElapsed(6)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
