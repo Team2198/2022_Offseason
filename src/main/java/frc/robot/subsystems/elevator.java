@@ -105,11 +105,14 @@ public class Elevator extends SubsystemBase {
    }  
 
    public void auto_shoot(){
-       SRight.set(0.4);
-       SLeft.set(0.4);
+       SRight.set(0.3);
+       SLeft.set(0.3);
    }
 
-
+   public void auto_shoot_two(){
+      SRight.set(0.75);
+      SRight.set(0.75);
+   }
      
    
    

@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
 
   
   private Command m_autonomousCommand;
-  private Timer timer;
+  //private Timer timer;
   private RobotContainer m_robotContainer;
   private DriveTrain driveTrain;
 
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     //reset everything
     this.m_robotContainer = new RobotContainer();
-    this.timer = new Timer();
+    //this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
     
@@ -79,44 +79,16 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    timer.stop();
-    timer.reset();
-    SmartDashboard.putNumber("curr timer", timer.get());
-    timer.start();
+    //timer.stop();
+    //timer.reset();
+    //SmartDashboard.putNumber("curr timer", timer.get());
+    //timer.start();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-
-    SmartDashboard.putString("bye", "hello");
-    m_robotContainer.reset();
-    if (!this.timer.hasElapsed(6)){ // change this for forward
-      SmartDashboard.putNumber("next timer", timer.get());
-      m_robotContainer.auto_elevator();
-    }
-    else{ 
-      
-      m_robotContainer.setZero(true);
-      
-      double timePassed = timer.get() - 6;
-      SmartDashboard.putNumber("seconds", timePassed);
-      if(timePassed <= 0.75){ // change this for back
-        //m_robotContainer.auto_drive(true);
-        driveTrain.setMotor(0.6, 0);//gets inverted
-      }
-      else{
-        //m_robotContainer.auto_drive(false);
-        driveTrain.setMotor(0, 0);
-        
-      } 
-    }
-    //schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
-
-
+    m_robotContainer.auto_one();
   }
 
   @Override
