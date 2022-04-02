@@ -11,13 +11,13 @@ import frc.robot.Constants;
 
 
 /** Add your docs here. */
-public class Intake {
+public class intake {
   
 
   DoubleSolenoid solenoid;  
 
 
-  public Intake(){
+  public intake(){
         
         
        this.solenoid = new DoubleSolenoid(1, PneumaticsModuleType.CTREPCM, 1, 0);
