@@ -42,7 +42,7 @@ public class Elevator extends SubsystemBase {
    }
   
   
-   public void setEMotor(boolean b){
+   public void setIntake(boolean b){
       if (b == true){
          intake.set(0.7);
       }
@@ -53,15 +53,29 @@ public class Elevator extends SubsystemBase {
 
    public void setSh(boolean b){
       if (b){
-        SRight.set(0.4);
-        SLeft.set(0.4);
+        SRight.set(0.3);
+        SLeft.set(0.3);
         
       }
       else{
          SLeft.set(0);
          SRight.set(0);
       }
+
+
+
    }  
+
+   public void setUpper(){
+      SRight.set(0.75);
+      SLeft.set(0.75);
+   }
+
+   public void setTarmac(){
+      SRight.set(0.65);
+      SLeft.set(0.65);
+   }
+
 
       
 

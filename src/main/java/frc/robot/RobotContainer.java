@@ -5,7 +5,7 @@
 package frc.robot;
 
 
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,6 +34,7 @@ public class RobotContainer {
   private final XboxController xboxController2;
   private final Climber climber;
   private final Elevator elevator;
+  private Timer timer;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
@@ -45,6 +46,7 @@ public class RobotContainer {
     this.elevator = new Elevator();
     this.xboxController2 = new XboxController(1);
     //
+    this.timer = new Timer();
 
     //public double get_valY(){
       //return xboxController.getY(GenericHID.Hand.kRight);
@@ -53,6 +55,8 @@ public class RobotContainer {
     //  return xboxController.getX(GenericHID.Hand.kLeft);
     //}
   }
+
+
 
   public void auto_drive(boolean yes){
     if (yes){
@@ -66,9 +70,13 @@ public class RobotContainer {
 
   public void reset(){
     this.intake.reset();
-    this.elevator.setEMotor(false);
+    this.elevator.setIntake(false);
     this.elevator.setEle(0);
     this.elevator.setSh(false);
+    timer.stop();
+    timer.reset();
+    
+    timer.start();
   }
 
   public void setZero(boolean c){
@@ -81,7 +89,7 @@ public class RobotContainer {
     driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX());
   }
 
-  public void elevator(){
+  public void auto_elevator(){
     elevator.setEle(0.8);
     elevator.auto_shoot();
     SmartDashboard.putBoolean("elevator on", true);
@@ -92,10 +100,12 @@ public class RobotContainer {
       elevator.setSh(true);
     }
 
-    else{
+    if (xboxController2.getLeftTriggerAxis() > 0.1){
+      elevator.setUpper();
+    }
+
+    if (xboxController2.getRightBumperPressed()){
       elevator.setSh(false);
-      SmartDashboard.putBoolean("not pressing trig", true);
-      
     }
     
   }
@@ -106,23 +116,23 @@ public class RobotContainer {
   if (xboxController.getLeftBumperPressed()){
     
     intake.toggleIntake(false);
-    elevator.setEMotor(true);
+    elevator.setIntake(true);
     
    }
 
 
   if (xboxController.getRightBumper()){
-    elevator.setEMotor(false);
+    elevator.setIntake(false);
     intake.toggleIntake(true);
   }
   
   if (xboxController.getAButton()){
     if(intake.getSol() == true){
-      elevator.setEMotor(true);
+      elevator.setIntake(true);
     }
   } 
   if (xboxController.getBButton()){
-    elevator.setEMotor(false);
+    elevator.setIntake(false);
   }
 
   /* if (xboxController2.getAButton()){

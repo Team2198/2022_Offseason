@@ -43,7 +43,7 @@ public class Robot extends TimedRobot {
     this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
-    timer.reset();
+    
     
 
   }
@@ -93,7 +93,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.reset();
     if (!this.timer.hasElapsed(6)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
-      m_robotContainer.elevator();
+      m_robotContainer.auto_elevator();
     }
     else{ 
       
