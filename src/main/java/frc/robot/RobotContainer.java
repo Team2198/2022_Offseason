@@ -215,8 +215,10 @@ public class RobotContainer {
     }
 
     if (xboxController2.getRightBumperPressed()){
-      elevator.setSh(false);
+      elevator.setTarmac();
     }
+    
+    
     
   }
 
@@ -248,22 +250,22 @@ public class RobotContainer {
   /* if (xboxController2.getAButton()){
     elevator.setSh(true);
   } */
-  if(xboxController2.getXButton()){
+  /* if(xboxController2.getXButton()){
     elevator.setSh(false);
     elevator.revert_setSh(false);
-  }
+  } */
 
-  if(xboxController2.getBButton()){
+  /* if(xboxController2.getBButton()){
     elevator.revert_setSh(true);
     SmartDashboard.putBoolean("pressed b", true);
-  }
+  } */
 
   if (xboxController2.getLeftBumper()){
     elevator.revert_setSh(true);
     SmartDashboard.putBoolean("pressed left", true);
   }
 
-  if(xboxController2.getRightBumper()){
+  if(xboxController2.getXButtonPressed()){
     elevator.setSh(false);
     elevator.revert_setSh(false);
   }
