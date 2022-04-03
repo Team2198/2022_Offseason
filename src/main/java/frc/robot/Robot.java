@@ -51,7 +51,12 @@ public class Robot extends TimedRobot {
     //this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
+    CameraServer.startAutomaticCapture();
+    // Creates a CvSink (storage space) and connects it to the UsbCamera 
+    CvSink cvSink = CameraServer.getVideo();
     
+    // Creates the CvSource(output) and a second server then connects them
+    CvSource outputStream = CameraServer.putVideo("Test", 640, 480);
     
     
 
@@ -102,12 +107,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    CameraServer.startAutomaticCapture();
-    // Creates a CvSink (storage space) and connects it to the UsbCamera 
-    CvSink cvSink = CameraServer.getVideo();
     
-    // Creates the CvSource(output) and a second server then connects them
-    CvSource outputStream = CameraServer.putVideo("Test", 640, 480);
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
