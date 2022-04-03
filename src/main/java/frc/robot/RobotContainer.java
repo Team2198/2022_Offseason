@@ -90,7 +90,13 @@ public class RobotContainer {
   public void auto_two(){
     SmartDashboard.putString("bye", "hello");
     SmartDashboard.putNumber("curr timer", timer.get());
-    if (!this.timer.hasElapsed(4)){ // change this for forward
+    double time_accumalation = 0;
+    double first_shot = 4;
+    double drive_back = 0.3;
+    double turn_180 = 2;
+    double intake_time = 2;
+    
+    if (!this.timer.hasElapsed(first_shot)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
@@ -101,37 +107,59 @@ public class RobotContainer {
       elevator.setEle(0);
       elevator.setSh(false);
       
-      double timePassed = timer.get() - 4;
+      double timePassed = timer.get() - first_shot;
       SmartDashboard.putNumber("seconds", timePassed);
-      if(timePassed <= 0.3){ // change this for back
+      if(timePassed <= turn_180){ // change this for back
+        driveTrain.setMotor(0, 0.2);
         //m_robotContainer.auto_drive(true);
-        driveTrain.setMotor(0.6, 0);//gets inverted
+        //gets inverted
       }
       else{
         driveTrain.setMotor(0, 0);
-        timePassed = timer.get() - 4.4; 
-        if (timePassed <= 2){
-          driveTrain.setMotor(0, 0.2);
+        timePassed = timer.get() - (first_shot+turn_180); 
+        if (timePassed <= drive_back){
+          
+          driveTrain.setMotor(-0.6, 0);
         }
 
         else{
           driveTrain.setMotor(0, 0);
-          timePassed = timer.get()-6.4;
-          if (timePassed <= 2){
-            intake.toggleIntake(false);
+          timePassed = timer.get()-(first_shot+turn_180+drive_back);
+          intake.toggleIntake(false);
+          if (timePassed <= intake_time){
+            
+            
+            elevator.setIntake(true);
           } 
 
           else{
-            timePassed = timer.get()-8.4;
-            if (timePassed <= 4){
-              elevator.setEle(0.8);
-              elevator.auto_shoot_two();
-              SmartDashboard.putBoolean("elevator on", true);
+            intake.toggleIntake(true);
+            elevator.setIntake(false);
+            timePassed = timer.get()-(first_shot+turn_180+drive_back+intake_time);
+            if (timePassed <= turn_180){
+              driveTrain.setMotor(0, 0.2);
+              
             }
 
             else{
-              elevator.setEle(0);
-              elevator.setSh(false);
+              timePassed = timer.get()-(first_shot+turn_180+drive_back+intake_time+turn_180);
+              if (timePassed <= drive_back){
+                driveTrain.setMotor(-0.6, 0);
+                
+              }
+              
+              else{
+                timePassed = timer.get()-(first_shot+turn_180+drive_back+intake_time+turn_180+drive_back);
+                if (timePassed <= first_shot){
+                elevator.setEle(0.8);
+                elevator.auto_shoot_two();
+                }
+                else{
+                  elevator.setEle(0);
+                  elevator.setSh(false);
+                }
+
+              }
             }
           }
           
