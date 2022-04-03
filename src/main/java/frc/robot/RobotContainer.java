@@ -35,6 +35,7 @@ public class RobotContainer {
   private final Climber climber;
   private final Elevator elevator;
   private Timer timer;
+  private final Sensor sensor;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
@@ -47,6 +48,7 @@ public class RobotContainer {
     this.xboxController2 = new XboxController(1);
     //
     this.timer = new Timer();
+    this.sensor = new Sensor();
 
     //public double get_valY(){
       //return xboxController.getY(GenericHID.Hand.kRight);
@@ -211,7 +213,10 @@ public class RobotContainer {
     }
 
     if (xboxController2.getLeftTriggerAxis() > 0.1){
-      elevator.setUpper();
+      if(sensor.detectColor()){
+        elevator.setUpper();
+      }
+      
     }
 
     if (xboxController2.getRightBumperPressed()){

@@ -15,6 +15,14 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.MjpegServer;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoSink;
+import edu.wpi.first.cscore.VideoMode.PixelFormat;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -43,6 +51,12 @@ public class Robot extends TimedRobot {
     //this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
+    CameraServer.startAutomaticCapture();
+    // Creates a CvSink (storage space) and connects it to the UsbCamera 
+    CvSink cvSink = CameraServer.getVideo();
+    
+    // Creates the CvSource(output) and a second server then connects them
+    CvSource outputStream = CameraServer.putVideo("Test", 640, 480);
     
     
 

@@ -38,19 +38,21 @@ public class Sensor extends SubsystemBase {
         //this.sound_sensor = new Ultrasonic(0, 1);
     }
 
-    public void detectColor(){
+    public boolean detectColor(){
         Color detectedColor = sensor.getColor();
         ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
-        
+        SmartDashboard.putString("hello", match.color.toString());
         if (match.color == Color.kRed || match.color == Color.kBlue){
             SmartDashboard.putString("Color", "Blue");
             SmartDashboard.putString("test", "idk");                    
+            return true;
         }
 
         
 
-        if (match.color == Color.kGray){
+        else{
             SmartDashboard.putString("Color", "Grey");
+            return false;
         //I think we will continue turning the robot if it detects the ground
         }
     }
