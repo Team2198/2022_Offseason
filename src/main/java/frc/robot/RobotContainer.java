@@ -96,8 +96,8 @@ public class RobotContainer {
     double drive_back = 0.3;
     double turn_180 = 2;
     double intake_time = 2;
-    
-    if (!timer.hasElapsed(4)){ // change this for forward
+    timer.start();
+    if (!timer.hasElapsed(first_shot)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
