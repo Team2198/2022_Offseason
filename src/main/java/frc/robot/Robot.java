@@ -44,6 +44,18 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    UsbCamera usbCamera = new UsbCamera("USB Camera 0", 2);
+    MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 57877);
+    mjpegServer1.setSource(usbCamera);
+
+// Creates the CvSink and connects it to the UsbCamera
+    CvSink cvSink = new CvSink("opencv_USB Camera 0");
+    cvSink.setSource(usbCamera);
+
+// Creates the CvSource and MjpegServer [2] and connects them
+    CvSource outputStream = new CvSource("Blur", PixelFormat.kMJPEG, 640, 480, 30);
+    MjpegServer mjpegServer2 = new MjpegServer("serve_Blur", 5778);
+    mjpegServer2.setSource(outputStream);
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     //reset everything
@@ -51,12 +63,7 @@ public class Robot extends TimedRobot {
     //this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
-    CameraServer.startAutomaticCapture();
-    // Creates a CvSink (storage space) and connects it to the UsbCamera 
-    CvSink cvSink = CameraServer.getVideo();
     
-    // Creates the CvSource(output) and a second server then connects them
-    CvSource outputStream = CameraServer.putVideo("Test", 640, 480);
     
     
 
@@ -93,6 +100,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_robotContainer.reset_timer();
     //timer.stop();
     //timer.reset();
     //SmartDashboard.putNumber("curr timer", timer.get());
@@ -102,7 +110,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    m_robotContainer.auto_one();
+    m_robotContainer.auto_two();
   }
 
   @Override

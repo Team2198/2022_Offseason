@@ -49,7 +49,8 @@ public class RobotContainer {
     //
     this.timer = new Timer();
     this.sensor = new Sensor();
-
+    //timer.reset();
+    
     //public double get_valY(){
       //return xboxController.getY(GenericHID.Hand.kRight);
     //}
@@ -96,7 +97,7 @@ public class RobotContainer {
     double turn_180 = 2;
     double intake_time = 2;
     
-    if (!this.timer.hasElapsed(first_shot)){ // change this for forward
+    if (!timer.hasElapsed(4)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
@@ -173,13 +174,18 @@ public class RobotContainer {
     }  
   }
 
-
+public void reset_timer(){
+  timer.stop();
+  timer.reset();
+}
 
   public void auto_three(){
+    SmartDashboard.putNumber("before initialization", timer.get());
+    timer.start();
     if (!this.timer.hasElapsed(4)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       elevator.setEle(0.8);
-      elevator.setTarmac();
+      elevator.auto_shoot_two();
       SmartDashboard.putBoolean("elevator on", true);
     }
     else{  
@@ -187,7 +193,7 @@ public class RobotContainer {
       elevator.setSh(false);
       double timePassed = timer.get() - 4;
       SmartDashboard.putNumber("seconds", timePassed);
-      if(timePassed <= 0.3){ // change this for back
+      if(timePassed <= 0.62){ // change this for back
         //m_robotContainer.auto_drive(true);
         driveTrain.setMotor(0.6, 0);//gets inverted
       }
@@ -241,9 +247,9 @@ public class RobotContainer {
     }
 
     if (xboxController2.getLeftTriggerAxis() > 0.1){
-      if(sensor.detectColor()){
+      //if(sensor.detectColor()){
         elevator.setUpper();
-      }
+      //}
       
     }
 
