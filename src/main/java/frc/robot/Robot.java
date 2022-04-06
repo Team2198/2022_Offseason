@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    UsbCamera usbCamera = new UsbCamera("USB Camera 0", 2);
+    UsbCamera usbCamera = new UsbCamera("USB Camera 0", 0);
     MjpegServer mjpegServer1 = new MjpegServer("serve_USB Camera 0", 57877);
     mjpegServer1.setSource(usbCamera);
 
@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    m_robotContainer.auto_two();
+    m_robotContainer.test_auto();
   }
 
   @Override

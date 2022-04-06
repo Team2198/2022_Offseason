@@ -92,13 +92,15 @@ public class RobotContainer {
     SmartDashboard.putString("bye", "hello");
     SmartDashboard.putNumber("curr timer", timer.get());
     double time_accumalation = 0;
-    double first_shot = 4;
-    double drive_back = 0.3;
-    double turn_180 = 2;
+    double first_shot = 3;
+    double drive_back = 1.3;
+    double turn_180 = 0.45;//2.1 seconds
     double intake_time = 2;
     timer.start();
     if (!timer.hasElapsed(first_shot)){ // change this for forward
+      intake.toggleIntake(true);
       SmartDashboard.putNumber("next timer", timer.get());
+      SmartDashboard.putNumber("before initialization", timer.get());
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
       SmartDashboard.putBoolean("elevator on", true);
@@ -108,24 +110,31 @@ public class RobotContainer {
       elevator.setEle(0);
       elevator.setSh(false);
       
+      
+
       double timePassed = timer.get() - first_shot;
-      SmartDashboard.putNumber("seconds", timePassed);
+      
       if(timePassed <= turn_180){ // change this for back
-        driveTrain.setMotor(0, 0.2);
+        SmartDashboard.putNumber("timertimer", timePassed);  
+        driveTrain.setMotor(0, 0.5);
         //m_robotContainer.auto_drive(true);
         //gets inverted
       }
+      
       else{
+        //intake.toggleIntake(false);
+        elevator.setIntake(true);
         driveTrain.setMotor(0, 0);
+
         timePassed = timer.get() - (first_shot+turn_180); 
-        if (timePassed <= drive_back){
+        /* if (timePassed <= drive_back){
           
-          driveTrain.setMotor(-0.6, 0);
+          driveTrain.setMotor(-0.4, 0);
         }
 
         else{
-          driveTrain.setMotor(0, 0);
-          timePassed = timer.get()-(first_shot+turn_180+drive_back);
+          driveTrain.setMotor(0, 0); */
+          /* timePassed = timer.get()-(first_shot+turn_180+drive_back);
           intake.toggleIntake(false);
           if (timePassed <= intake_time){
             
@@ -134,7 +143,7 @@ public class RobotContainer {
           } 
 
           else{
-            intake.toggleIntake(true);
+            
             elevator.setIntake(false);
             timePassed = timer.get()-(first_shot+turn_180+drive_back+intake_time);
             if (timePassed <= turn_180){
@@ -143,6 +152,7 @@ public class RobotContainer {
             }
 
             else{
+              driveTrain.setMotor(0, 0.2);
               timePassed = timer.get()-(first_shot+turn_180+drive_back+intake_time+turn_180);
               if (timePassed <= drive_back){
                 driveTrain.setMotor(-0.6, 0);
@@ -158,18 +168,18 @@ public class RobotContainer {
                 else{
                   elevator.setEle(0);
                   elevator.setSh(false);
-                }
+                } */
 
-              }
-            }
-          }
+              } 
+            //}
+          //}
           
           
-        }
+        //}
         //m_robotContainer.auto_drive(false);
         
         
-      } 
+      //} 
 
     }  
   }
@@ -179,8 +189,15 @@ public void reset_timer(){
   timer.reset();
 }
 
+  public void test_auto(){
+    timer.start();
+    if(!timer.hasElapsed(3)){
+      driveTrain.setMotor(0, 0.25);
+    }
+  }
+
   public void auto_three(){
-    SmartDashboard.putNumber("before initialization", timer.get());
+    
     timer.start();
     if (!this.timer.hasElapsed(4)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
