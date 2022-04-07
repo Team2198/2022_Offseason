@@ -8,6 +8,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -36,6 +37,8 @@ public class RobotContainer {
   private final Elevator elevator;
   private Timer timer;
   private final Sensor sensor;
+  private Gyro gyro;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
@@ -60,6 +63,7 @@ public class RobotContainer {
   }
 
   public void auto_one(){
+    timer.start();
     SmartDashboard.putString("bye", "hello");
     SmartDashboard.putNumber("curr timer", timer.get());
     if (!this.timer.hasElapsed(6)){ // change this for forward
@@ -89,7 +93,7 @@ public class RobotContainer {
   }
 
   public void auto_two(){ // shoot, pickup ball, shoot
-    double rotSpeed = 0.5; // adjust rotational speed
+  /*  double rotSpeed = 0.5; // adjust rotational speed
     double fwdSpeed = 0.4;
 
 
@@ -140,7 +144,7 @@ public class RobotContainer {
     else if(!timer.hasElapsed(timeInts[6])){ // activate shooter, elevate ball
       elevator.auto_shoot_two();
       elevator.setEle(0.8);
-    }
+    }*/
 } 
 
 
@@ -151,9 +155,11 @@ public void reset_timer(){
 
   public void test_auto(){
     timer.start();
-    if(!timer.hasElapsed(3)){
+    /*if(!timer.hasElapsed(3)){
       driveTrain.setMotor(0, 0.25);
-    }
+    }*/
+    driveTrain.setMotor(0, .25); // Clockwise
+    SmartDashboard.putNumber("angle", rs450.getAngle()); // should go up
   }
 
   public void auto_three(){
