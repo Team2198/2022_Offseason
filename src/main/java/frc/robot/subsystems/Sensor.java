@@ -14,16 +14,16 @@ import edu.wpi.first.wpilibj.util.Color;
 
 /** Add your docs here. */
 public class Sensor extends SubsystemBase {
-    private final ColorSensorV3 sensor;
+    /*private final ColorSensorV3 sensor;
     private final I2C.Port i2cPort = I2C.Port.kOnboard;
-    private final ColorMatch m_colorMatcher;
+    private final ColorMatch m_colorMatcher;*/
     //private final Color color_blue;
     //private final Color color_red;
     //private final Color color_grey;
     private Ultrasonic sound_sensor;
 
     
-    public Sensor(){
+  /*  public Sensor(){
         this.sensor = new ColorSensorV3(i2cPort);
         this.m_colorMatcher = new ColorMatch();
         //this.color_blue = new Color(0.143, 0.427, 0.429); 
@@ -61,5 +61,5 @@ public class Sensor extends SubsystemBase {
     public void detect_distance(){
         double distance = sound_sensor.getRangeInches();
         SmartDashboard.putNumber("distance", distance);
-    }
+    }*/
 }

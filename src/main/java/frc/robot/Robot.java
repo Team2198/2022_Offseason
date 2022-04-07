@@ -15,6 +15,9 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.DriveTrain;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -40,8 +43,15 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     //reset everything
-
-  
+    
+    // Creates UsbCamera and MjpegServer [1] and connects them
+    CameraServer.startAutomaticCapture();
+    
+    // Creates the CvSink and connects it to the UsbCamera
+    CvSink cvSink = CameraServer.getVideo();
+    
+    // Creates the CvSource and MjpegServer [2] and connects them
+    CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
     
     this.m_robotContainer = new RobotContainer();
     //this.timer = new Timer();
@@ -83,18 +93,17 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    timer.stop();
-    timer.reset();
-    SmartDashboard.putNumber("curr timer", timer.get());
-    timer.start();
+    m_robotContainer.reset_timer();
+    //SmartDashboard.putNumber("curr timer", timer.get());
+    //timer.start();
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
 
-    m_robotContainer.reset();
-    m_robotContainer.auto_two();
+    //m_robotContainer.reset();
+    m_robotContainer.test_auto();
     /* if (!this.timer.hasElapsed(6)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       m_robotContainer.elevator();
