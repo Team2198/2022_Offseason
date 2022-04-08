@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 
 public class DriveTrain extends SubsystemBase {    
@@ -31,7 +32,6 @@ public class DriveTrain extends SubsystemBase {
         this.rightTwo = new WPI_TalonSRX(Constants.Right_Two);
         this.rightThree = new WPI_TalonSRX(Constants.Right_Three);
         //this.filter = new SlewRateLimiter(0.5);
-        
         this.leftOne.setNeutralMode(NeutralMode.Coast);
         this.leftTwo.setNeutralMode(NeutralMode.Coast);
         this.leftThree.setNeutralMode(NeutralMode.Coast);
@@ -63,7 +63,7 @@ public class DriveTrain extends SubsystemBase {
       //differentialDrive.tankDrive(y, x);
     }
     
-
+    
     @Override
     public void periodic() {
       // This method will be called once per scheduler run
