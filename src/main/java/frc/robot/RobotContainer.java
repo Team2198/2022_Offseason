@@ -6,9 +6,11 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
+
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,7 +39,8 @@ public class RobotContainer {
   private final Elevator elevator;
   private Timer timer;
   private final Sensor sensor;
-  private Gyro gyro;
+  
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -62,14 +65,16 @@ public class RobotContainer {
     //}
   }
 
+  
+  
   public void auto_one(){
     timer.start();
     SmartDashboard.putString("bye", "hello");
     SmartDashboard.putNumber("curr timer", timer.get());
-    if (!this.timer.hasElapsed(6)){ // change this for forward
-      SmartDashboard.putNumber("next timer", timer.get());
+    if (!timer.hasElapsed(6)){ // change this for forward
+
       elevator.setEle(0.8);
-      elevator.auto_shoot();
+      elevator.auto_shoot_two();
       SmartDashboard.putBoolean("elevator on", true);
     }
     else{ 
@@ -93,12 +98,12 @@ public class RobotContainer {
   }
 
   public void auto_two(){ // shoot, pickup ball, shoot
-  /*  double rotSpeed = 0.5; // adjust rotational speed
+    //double rotSpeed = 0.5; // adjust rotational speed
     double fwdSpeed = 0.4;
 
 
     double[] timeInts = {
-      3, .45, 2, .50, 1, 1, 2
+      10, 2.5, 2, 2.5, 1, 1, 2
     }; // 0 = 1st shot, 1 = rotate time (2.1), 2 = drive forward, 3 = rotate 180deg, 4 = drive forward, 5 = lower ball, 6 = shoot
 
     for(int i = 0; i < timeInts.length-1; i++){ // process all time intervals (accumulate total time)
@@ -119,9 +124,10 @@ public class RobotContainer {
       elevator.auto_shoot_two();
     }
     else if(!timer.hasElapsed(timeInts[1])){ // rotate
+      SmartDashboard.putNumber("index 1", timeInts[1]);
       elevator.setEle(0);
       elevator.setSh(false);
-      driveTrain.setMotor(0, rotSpeed);
+      driveTrain.turn_drive(true);
     }
     else if(!timer.hasElapsed(timeInts[2])){ // stop rot + intake ball (drive forward + run intake/elevator)
       intake.toggleIntake(false); // lower intake
@@ -132,7 +138,7 @@ public class RobotContainer {
     else if(!timer.hasElapsed(timeInts[3])){ // retract intake + stop drive, rotate
       elevator.setIntake(false);
       intake.toggleIntake(true);
-      driveTrain.setMotor(0, -rotSpeed);
+      driveTrain.turn_drive(false);
     }
     else if(!timer.hasElapsed(timeInts[4])){
       driveTrain.setMotor(fwdSpeed, 0); // stop rot + move forward
@@ -140,11 +146,12 @@ public class RobotContainer {
     else if(!timer.hasElapsed(timeInts[5])){ // stop drive + move ball down ele
       driveTrain.setMotor(0, 0); // stop moving
       elevator.setEle(-0.8);
+      driveTrain.cali_gyro();
     }
     else if(!timer.hasElapsed(timeInts[6])){ // activate shooter, elevate ball
       elevator.auto_shoot_two();
       elevator.setEle(0.8);
-    }*/
+    }
 } 
 
 
@@ -159,14 +166,37 @@ public void reset_timer(){
       driveTrain.setMotor(0, 0.25);
     }*/
     driveTrain.setMotor(0, .25); // Clockwise
-    SmartDashboard.putNumber("angle", rs450.getAngle()); // should go up
+    //SmartDashboard.putNumber("angle", gyro.getAngle()); // should go up
+    SmartDashboard.putNumber("cumulative time", timer.get());
+  }
+
+ 
+ /*  public void accurateturnTest(){
+    timer.start();
+    //attempt to turn 180
+    //double deviation = gyro.getAngle();
+    SmartDashboard.putNumber("angle", deviation);
+    if(deviation > -6.65){ // -6.65 desired
+      driveTrain.setMotor(0, .25);
+    }
+    else if(deviation < -7){
+      driveTrain.setMotor(0, -.25);
+    }
+    else{
+      driveTrain.setMotor(0, 0);
+    }
+  }
+ */
+  public void calibrateGyro(){
+    driveTrain.cali_gyro();
   }
 
   public void auto_three(){
-    
+    //SmartDashboard.putNumber("angle", gyro.getAngle());
     timer.start();
+    SmartDashboard.putNumber("next timer", timer.get());
     if (!this.timer.hasElapsed(4)){ // change this for forward
-      SmartDashboard.putNumber("next timer", timer.get());
+      
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
       SmartDashboard.putBoolean("elevator on", true);
@@ -193,7 +223,6 @@ public void reset_timer(){
     this.elevator.setSh(false);
     timer.stop();
     timer.reset();
-    
     timer.start();
   }
 

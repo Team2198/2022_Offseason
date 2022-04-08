@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
     //this.timer = new Timer();
     this.driveTrain = new DriveTrain();
     m_robotContainer.reset();
+    //m_robotContainer.calibrateGyro();
     //timer.reset();
     
 
@@ -94,6 +95,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.reset_timer();
+    m_robotContainer.calibrateGyro();
     //SmartDashboard.putNumber("curr timer", timer.get());
     //timer.start();
   }
@@ -101,9 +103,9 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-
+    
     //m_robotContainer.reset();
-    m_robotContainer.test_auto();
+    m_robotContainer.auto_two();
     /* if (!this.timer.hasElapsed(6)){ // change this for forward
       SmartDashboard.putNumber("next timer", timer.get());
       m_robotContainer.elevator();
