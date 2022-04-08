@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 
 
@@ -21,7 +20,6 @@ public class DriveTrain extends SubsystemBase {
     WPI_TalonSRX rightThree;      
     MotorControllerGroup right;
     DifferentialDrive differentialDrive;
-    private ADXRS450_Gyro gyro;
     //SlewRateLimiter filter;
 
 
@@ -34,7 +32,6 @@ public class DriveTrain extends SubsystemBase {
         this.rightTwo = new WPI_TalonSRX(Constants.Right_Two);
         this.rightThree = new WPI_TalonSRX(Constants.Right_Three);
         //this.filter = new SlewRateLimiter(0.5);
-        this.gyro= new ADXRS450_Gyro();
         this.leftOne.setNeutralMode(NeutralMode.Coast);
         this.leftTwo.setNeutralMode(NeutralMode.Coast);
         this.leftThree.setNeutralMode(NeutralMode.Coast);
@@ -66,34 +63,7 @@ public class DriveTrain extends SubsystemBase {
       //differentialDrive.tankDrive(y, x);
     }
     
-
-    public void turn_drive(boolean dir){
-      
-        // attempt to turn 180
-        double deviation = gyro.getAngle();
-        SmartDashboard.putNumber("angle", deviation);
-        if(dir == false){
-          if(deviation < (6.65*.70)){ // -6.65 desired, -5.1
-            differentialDrive.arcadeDrive(0, -(-.25));
-          }
-          else if(deviation < 6.65){
-            differentialDrive.arcadeDrive(0,-(-(-0.13*(deviation-4.65)+.25))); // -.1293
-          }
-        }
-        else{
-          if(deviation > (-6.65*.70)){ // -6.65 desired, -5.1
-            differentialDrive.arcadeDrive(0, -.25);
-          }
-          else if(deviation > -6.65){
-            differentialDrive.arcadeDrive(0,-(-0.1293*(deviation+4.65)+.3));
-          }
-        }    
-      }
     
-    
-public void cali_gyro(){
-  gyro.calibrate();
-}
     @Override
     public void periodic() {
       // This method will be called once per scheduler run

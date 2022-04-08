@@ -39,8 +39,9 @@ public class RobotContainer {
   private final Elevator elevator;
   private Timer timer;
   private final Sensor sensor;
+  private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   
-  
+  double offset = 0;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -97,23 +98,126 @@ public class RobotContainer {
     }  
   }
 
+  public void calibrate(){
+    gyro.calibrate();
+  }
+
+  public void setOff(double gyroOff){
+    offset = gyroOff;
+  }
+
+
+  public void turn_drive_two(boolean dir){
+    // attempt to turn 180
+    double deviation = gyro.getAngle() + offset;
+    SmartDashboard.putNumber("deviation", deviation);
+    if(dir == false){ // true right, false left
+      if(deviation < (6.65*.80)){ // -6.65 desired, -5.1
+         driveTrain.setMotor(0, (-.25));
+      }
+      else if(deviation < 6.65){
+        //driveTrain.setMotor(0,(-(-0.05*(deviation-4.65)+.25))); // -.1293
+        driveTrain.setMotor(0, -.2);
+      }
+
+      else if(deviation == 6.65){
+        driveTrain.setMotor(0, 0);
+        timer.start();
+      }
+    }
+    else{
+      if(deviation > (-6.65*.70)){ // -6.65 desired, -5.1
+        driveTrain.setMotor(0, .25);
+      }
+      else if(deviation > -6.65){
+        //driveTrain.setMotor(0,(-0.05*(deviation+4.65)+.25));
+        driveTrain.setMotor(0, .20);
+      }
+    }    
+  }
+
+
+  public void turn_drive(boolean dir){
+    // attempt to turn 180
+    double deviation = gyro.getAngle() + offset;
+    SmartDashboard.putNumber("deviation", deviation);
+    if(dir == false){ // true right, false left
+      if(deviation < (6.65*.80)){ // -6.65 desired, -5.1
+         driveTrain.setMotor(0, (-.25));
+      }
+      else if(deviation < 6.65){
+        //driveTrain.setMotor(0,(-(-0.05*(deviation-4.65)+.25))); // -.1293
+        driveTrain.setMotor(0, -.2);
+      }
+    }
+    else{
+      if(deviation > (-6.65*.70)){ // -6.65 desired, -5.1
+        driveTrain.setMotor(0, .25);
+      }
+      else if(deviation > -6.65){
+        //driveTrain.setMotor(0,(-0.05*(deviation+4.65)+.25));
+        driveTrain.setMotor(0, .20);
+      }
+    }    
+  }
+
+  public boolean turn(boolean dir){
+    // attempt to turn 180
+    double deviation = gyro.getAngle();
+    SmartDashboard.putNumber("deviation", deviation);
+    if(dir == false){ // true right, false left
+      if(deviation < ((6.65+Math.abs(offset))*.80)){ // -6.65 desired, -5.1
+         driveTrain.setMotor(0, (-.25));
+      }
+      else if(deviation < (6.65+Math.abs(offset))){
+        //driveTrain.setMotor(0,(-(-0.05*(deviation-4.65)+.25))); // -.1293
+        driveTrain.setMotor(0, -.2);
+      }
+      else{
+        return true;
+      }
+    }
+    else{
+      if(deviation > ((-6.65-Math.abs(offset))*.80)){ // -6.65 desired, -5.1
+        driveTrain.setMotor(0, .25);
+      }
+      else if(deviation > (-6.65-Math.abs(offset))){
+        //driveTrain.setMotor(0,(-0.05*(deviation+4.65)+.25));
+        driveTrain.setMotor(0, .20);
+      }
+      else{
+        return true;
+      }
+    }
+    return false;
+  }
+
   public void auto_two(){ // shoot, pickup ball, shoot
     //double rotSpeed = 0.5; // adjust rotational speed
     double fwdSpeed = 0.4;
 
 
     double[] timeInts = {
-      10, 2.5, 2, 2.5, 1, 1, 2
+      7, .2, 1, 1.5, .2, 1, .3, 2
     }; // 0 = 1st shot, 1 = rotate time (2.1), 2 = drive forward, 3 = rotate 180deg, 4 = drive forward, 5 = lower ball, 6 = shoot
 
-    for(int i = 0; i < timeInts.length-1; i++){ // process all time intervals (accumulate total time)
-      if(i > 0){
-        for(int x = 0; x < i; x++){
-          timeInts[i] = timeInts[i] + timeInts[i-x];
+    for(int i = 0; i <= timeInts.length-1; i++){ // process all time intervals (accumulate total time)
+      if (i!=0){
+      timeInts[i] = timeInts[i] + timeInts[i-1];}
+      /* if(i > 0){
+        for(int x = 0; x <= i; x++){
+          if(x > 0){
+            timeInts[i] = timeInts[i] + timeInts[i-x];
+          }
         }
-      }
+      } */
     }
-
+    SmartDashboard.putNumber("index 0", timeInts[0]);
+    SmartDashboard.putNumber("index 1 (problem)", timeInts[1]);
+    SmartDashboard.putNumber("index 2", timeInts[2]);
+    SmartDashboard.putNumber("index 3", timeInts[3]);
+    SmartDashboard.putNumber("index 4", timeInts[4]);
+    SmartDashboard.putNumber("index 5", timeInts[5]);
     fwdSpeed = -fwdSpeed; // v drive is inverted 
 
 
@@ -122,33 +226,46 @@ public class RobotContainer {
     if (!timer.hasElapsed(timeInts[0])){ // shoot
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
+      offset = gyro.getAngle();
     }
     else if(!timer.hasElapsed(timeInts[1])){ // rotate
       SmartDashboard.putNumber("index 1", timeInts[1]);
       elevator.setEle(0);
       elevator.setSh(false);
-      driveTrain.turn_drive(true);
+      timer.stop();
+      boolean advance = turn(true);
+      if(advance == true){
+        timer.start();
+      }
+      //turn_drive_two(true);
     }
     else if(!timer.hasElapsed(timeInts[2])){ // stop rot + intake ball (drive forward + run intake/elevator)
       intake.toggleIntake(false); // lower intake
       elevator.setIntake(true); // run intake motor
       elevator.setEle(0.8); // run elevator
+    }
+    else if(!timer.hasElapsed(timeInts[3])){
       driveTrain.setMotor(fwdSpeed, 0); // Moves forward
+      offset = gyro.getAngle()*-1;
+      //offset = gyro.getAngle()
     }
-    else if(!timer.hasElapsed(timeInts[3])){ // retract intake + stop drive, rotate
-      elevator.setIntake(false);
-      intake.toggleIntake(true);
-      driveTrain.turn_drive(false);
+    else if(!timer.hasElapsed(timeInts[4])){ // retract intake + stop drive, rotate
+      timer.stop();
+      boolean advance = turn(false);
+      if(advance == true){
+        timer.start();
+      }
+      //turn_drive_two(false);
     }
-    else if(!timer.hasElapsed(timeInts[4])){
+    else if(!timer.hasElapsed(timeInts[5])){
       driveTrain.setMotor(fwdSpeed, 0); // stop rot + move forward
     }
-    else if(!timer.hasElapsed(timeInts[5])){ // stop drive + move ball down ele
+    else if(!timer.hasElapsed(timeInts[6])){ // stop drive + move ball down ele
       driveTrain.setMotor(0, 0); // stop moving
       elevator.setEle(-0.8);
-      driveTrain.cali_gyro();
+      
     }
-    else if(!timer.hasElapsed(timeInts[6])){ // activate shooter, elevate ball
+    else if(!timer.hasElapsed(timeInts[7])){ // activate shooter, elevate ball
       elevator.auto_shoot_two();
       elevator.setEle(0.8);
     }
@@ -187,9 +304,6 @@ public void reset_timer(){
     }
   }
  */
-  public void calibrateGyro(){
-    driveTrain.cali_gyro();
-  }
 
   public void auto_three(){
     //SmartDashboard.putNumber("angle", gyro.getAngle());
