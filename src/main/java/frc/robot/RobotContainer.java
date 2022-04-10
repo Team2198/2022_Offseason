@@ -6,6 +6,7 @@ package frc.robot;
 
 
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -40,8 +41,7 @@ public class RobotContainer {
   private Timer timer;
   private final Sensor sensor;
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
-  
-  double offset = 0;
+  double prevAngle;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -56,21 +56,12 @@ public class RobotContainer {
     //
     this.timer = new Timer();
     this.sensor = new Sensor();
-    //timer.reset();
-    
-    //public double get_valY(){
-      //return xboxController.getY(GenericHID.Hand.kRight);
-    //}
-    //public double get_valX(){
-    //  return xboxController.getX(GenericHID.Hand.kLeft);
-    //}
   }
 
   
   
   public void auto_one(){
     timer.start();
-    SmartDashboard.putString("bye", "hello");
     SmartDashboard.putNumber("curr timer", timer.get());
     if (!timer.hasElapsed(6)){ // change this for forward
 
@@ -79,7 +70,6 @@ public class RobotContainer {
       SmartDashboard.putBoolean("elevator on", true);
     }
     else{ 
-      
       elevator.setEle(0);
       elevator.setSh(false);
       
@@ -102,92 +92,44 @@ public class RobotContainer {
     gyro.calibrate();
   }
 
-  public void setOff(double gyroOff){
-    offset = gyroOff;
-  }
+  public boolean turn(Double dir){
+    dir = -dir; // invert because gyro is inverted
+    double scale = 0.0369444444444444;
+    dir = dir*scale;
+    double curAngle = gyro.getAngle(); // 0 = no rotation, - clockwise, + counter-clockwise 
+    double minSpeed = .17; // minimum rotational power required to turn
+
+    //double turnRate = -(prevAngle-curAngle); // - is right, + is left
 
 
-  public void turn_drive_two(boolean dir){
-    // attempt to turn 180
-    double deviation = gyro.getAngle() + offset;
-    SmartDashboard.putNumber("deviation", deviation);
-    if(dir == false){ // true right, false left
-      if(deviation < (6.65*.80)){ // -6.65 desired, -5.1
-         driveTrain.setMotor(0, (-.25));
+    SmartDashboard.putNumber("deviation", curAngle);
+    
+    if(curAngle > dir){ // turn right
+      if(curAngle > dir*.7){
+        driveTrain.setMotor(0, .25); // full speed
       }
-      else if(deviation < 6.65){
-        //driveTrain.setMotor(0,(-(-0.05*(deviation-4.65)+.25))); // -.1293
-        driveTrain.setMotor(0, -.2);
+      else if(curAngle > dir){
+        double tS = -.13*(dir-curAngle)+.25;
+        if(tS < minSpeed){
+          tS = minSpeed;
+        }
+        driveTrain.setMotor(0,tS); // slow down,  linear function goes here, min speed is .17
       }
-
-      else if(deviation == 6.65){
-        driveTrain.setMotor(0, 0);
-        timer.start();
+    }
+    else if(curAngle < dir){ // turn left
+      if(curAngle < dir*.7){
+        driveTrain.setMotor(0, -.25);
+      }
+      else if(curAngle < dir){
+        double tS = -(-.13*(dir-curAngle)+.25); // inverse for left
+        if(tS > -minSpeed){
+          tS = -minSpeed;
+        }
+        driveTrain.setMotor(0,tS); // slow down,  linear function goes here, min speed is .17
       }
     }
     else{
-      if(deviation > (-6.65*.70)){ // -6.65 desired, -5.1
-        driveTrain.setMotor(0, .25);
-      }
-      else if(deviation > -6.65){
-        //driveTrain.setMotor(0,(-0.05*(deviation+4.65)+.25));
-        driveTrain.setMotor(0, .20);
-      }
-    }    
-  }
-
-
-  public void turn_drive(boolean dir){
-    // attempt to turn 180
-    double deviation = gyro.getAngle() + offset;
-    SmartDashboard.putNumber("deviation", deviation);
-    if(dir == false){ // true right, false left
-      if(deviation < (6.65*.80)){ // -6.65 desired, -5.1
-         driveTrain.setMotor(0, (-.25));
-      }
-      else if(deviation < 6.65){
-        //driveTrain.setMotor(0,(-(-0.05*(deviation-4.65)+.25))); // -.1293
-        driveTrain.setMotor(0, -.2);
-      }
-    }
-    else{
-      if(deviation > (-6.65*.70)){ // -6.65 desired, -5.1
-        driveTrain.setMotor(0, .25);
-      }
-      else if(deviation > -6.65){
-        //driveTrain.setMotor(0,(-0.05*(deviation+4.65)+.25));
-        driveTrain.setMotor(0, .20);
-      }
-    }    
-  }
-
-  public boolean turn(boolean dir){
-    // attempt to turn 180
-    double deviation = gyro.getAngle();
-    SmartDashboard.putNumber("deviation", deviation);
-    if(dir == false){ // true right, false left
-      if(deviation < ((6.65+Math.abs(offset))*.80)){ // -6.65 desired, -5.1
-         driveTrain.setMotor(0, (-.25));
-      }
-      else if(deviation < (6.65+Math.abs(offset))){
-        //driveTrain.setMotor(0,(-(-0.05*(deviation-4.65)+.25))); // -.1293
-        driveTrain.setMotor(0, -.2);
-      }
-      else{
-        return true;
-      }
-    }
-    else{
-      if(deviation > ((-6.65-Math.abs(offset))*.80)){ // -6.65 desired, -5.1
-        driveTrain.setMotor(0, .25);
-      }
-      else if(deviation > (-6.65-Math.abs(offset))){
-        //driveTrain.setMotor(0,(-0.05*(deviation+4.65)+.25));
-        driveTrain.setMotor(0, .20);
-      }
-      else{
-        return true;
-      }
+      return true;
     }
     return false;
   }
@@ -226,14 +168,13 @@ public class RobotContainer {
     if (!timer.hasElapsed(timeInts[0])){ // shoot
       elevator.setEle(0.8);
       elevator.auto_shoot_two();
-      offset = gyro.getAngle();
     }
     else if(!timer.hasElapsed(timeInts[1])){ // rotate
       SmartDashboard.putNumber("index 1", timeInts[1]);
       elevator.setEle(0);
       elevator.setSh(false);
       timer.stop();
-      boolean advance = turn(true);
+      boolean advance = turn(180.0); // orient robot 180 degrees to calibration
       if(advance == true){
         timer.start();
       }
@@ -246,12 +187,11 @@ public class RobotContainer {
     }
     else if(!timer.hasElapsed(timeInts[3])){
       driveTrain.setMotor(fwdSpeed, 0); // Moves forward
-      offset = gyro.getAngle()*-1;
       //offset = gyro.getAngle()
     }
     else if(!timer.hasElapsed(timeInts[4])){ // retract intake + stop drive, rotate
       timer.stop();
-      boolean advance = turn(false);
+      boolean advance = turn(0.0); // orient robot in same pos as calibration
       if(advance == true){
         timer.start();
       }
