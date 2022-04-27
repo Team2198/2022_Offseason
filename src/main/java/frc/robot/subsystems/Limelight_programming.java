@@ -12,7 +12,7 @@ public class Limelight_programming extends SubsystemBase{
    
 //pain
 //hello
-    public double getValues(){
+    public double getX(){
         NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
         NetworkTableEntry tx = table.getEntry("tx");
         NetworkTableEntry ty = table.getEntry("ty");
