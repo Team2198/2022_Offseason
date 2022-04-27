@@ -42,6 +42,7 @@ public class Climber extends SubsystemBase{
         }
         else if(!direction  && !limit_switch_below.get()){
             climb_motor.set(0);
+            System.out.println("Hello");
         } 
     }
 }
