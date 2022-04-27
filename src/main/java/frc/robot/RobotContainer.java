@@ -23,6 +23,8 @@ import frc.robot.commands.PID_test;
 import frc.robot.commands.Position_Scheduler;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Gyro_Programming;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -32,7 +34,7 @@ import frc.robot.subsystems.Elevator;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
- //more pain
+
 
 
 
@@ -44,7 +46,7 @@ public class RobotContainer {
   private final Elevator elevator;
   private Timer timer;
   private final Sensor sensor;
-  private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
+  private Gyro_Programming gyro = new Gyro_Programming();
   double prevAngle;
   private final Limelight_programming limelight;
   
@@ -97,14 +99,14 @@ public class RobotContainer {
   }
 
   public void calibrate(){
-    gyro.calibrate();
+    gyro.calibrate_gyro();
   }
 
   public boolean turn(Double dir){
     dir = -dir; // invert because gyro is inverted
     double scale = 0.0369444444444444;
     dir = dir*scale;
-    double curAngle = gyro.getAngle(); // 0 = no rotation, - clockwise, + counter-clockwise 
+    double curAngle = gyro.gyro_angle(); // 0 = no rotation, - clockwise, + counter-clockwise 
     double minSpeed = .17; // minimum rotational power required to turn
 
     //double turnRate = -(prevAngle-curAngle); // - is right, + is left
@@ -402,7 +404,7 @@ public void reset_timer(){
 
   
   public void limelight(){
-    this.limelight.getX();
+    this.limelight.getValues();
     
   }
 
@@ -414,8 +416,8 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //Joystick Right = new Joystick(1);
-    //JoystickButton RT = new JoystickButton(Right, 3);
+    Joystick Right = new Joystick(1);
+    JoystickButton RT = new JoystickButton(Right, 3);
     //RT.whenPressed(new PID_test().andThen(new Position_Scheduler()));
   }
 
