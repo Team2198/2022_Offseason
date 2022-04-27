@@ -8,7 +8,11 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 public class DriveTrain extends SubsystemBase {    
     WPI_TalonSRX leftOne;  
@@ -20,11 +24,14 @@ public class DriveTrain extends SubsystemBase {
     WPI_TalonSRX rightThree;      
     MotorControllerGroup right;
     DifferentialDrive differentialDrive;
+    public Encoder encoder;
     //SlewRateLimiter filter;
+    
 
 
 
     public DriveTrain(){
+        //this.encoder = new Encoder(0, 1);
         this.leftOne= new WPI_TalonSRX(Constants.Left_One);
         this.leftTwo= new WPI_TalonSRX(Constants.Left_Two);  
         this.leftThree= new WPI_TalonSRX(Constants.Left_Three);  
@@ -57,10 +64,14 @@ public class DriveTrain extends SubsystemBase {
         }
         differentialDrive.curvatureDrive(y, xRef+0.15, false);
       }*/
+      SmartDashboard.putNumber("value", y);
+
       differentialDrive.arcadeDrive(y, -x, false);
       SmartDashboard.putNumber("Y val", y);
       SmartDashboard.putNumber("X val", x);
       //differentialDrive.tankDrive(y, x);
+      
+
     }
     
     

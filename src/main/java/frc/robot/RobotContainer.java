@@ -10,13 +10,17 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
-
-
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.subsystems.Limelight_programming;
+import frc.robot.commands.PID_test;
+import frc.robot.commands.Position_Scheduler;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
 
@@ -42,17 +46,21 @@ public class RobotContainer {
   private final Sensor sensor;
   private ADXRS450_Gyro gyro = new ADXRS450_Gyro();
   double prevAngle;
+  private final Limelight_programming limelight;
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
+    
     configureButtonBindings();
-    this.xboxController = new XboxController(Constants.Xbox_Controller);
+    this.xboxController = new XboxController(0);
     this.driveTrain = new DriveTrain();
     this.intake = new Intake();
     this.climber = new Climber();
     this.elevator = new Elevator();
     this.xboxController2 = new XboxController(1);
+    this.limelight = new Limelight_programming();
     //
     this.timer = new Timer();
     this.sensor = new Sensor();
@@ -287,7 +295,7 @@ public void reset_timer(){
   }
 
   public void get_val(){
-    driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX());
+    driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX()*0.75);
   }
 
   public void auto_elevator(){
@@ -301,7 +309,7 @@ public void reset_timer(){
       elevator.setSh(true);
     }
 
-    if (xboxController2.getLeftTriggerAxis() > 0.1){
+    /* if (xboxController2.getLeftTriggerAxis() > 0.1){
       //if(sensor.detectColor()){
         elevator.setUpper();
       //}
@@ -310,7 +318,7 @@ public void reset_timer(){
 
     if (xboxController2.getRightBumperPressed()){
       elevator.setTarmac();
-    }
+    } */
     
     
     
@@ -341,18 +349,18 @@ public void reset_timer(){
     elevator.setIntake(false);
   }
 
-  /* if (xboxController2.getAButton()){
+  if (xboxController2.getAButton()){
     elevator.setSh(true);
-  } */
-  /* if(xboxController2.getXButton()){
+  } 
+  if(xboxController2.getXButton()){
     elevator.setSh(false);
     elevator.revert_setSh(false);
-  } */
+  } 
 
-  /* if(xboxController2.getBButton()){
+  if(xboxController2.getBButton()){
     elevator.revert_setSh(true);
     SmartDashboard.putBoolean("pressed b", true);
-  } */
+  }
 
   if (xboxController2.getLeftBumper()){
     elevator.revert_setSh(true);
@@ -362,6 +370,7 @@ public void reset_timer(){
   if(xboxController2.getXButtonPressed()){
     elevator.setSh(false);
     elevator.revert_setSh(false);
+    SmartDashboard.putBoolean("on", true);
   }
   
   elevator.setEle(xboxController2.getRightY()*0.80);
@@ -385,14 +394,17 @@ public void reset_timer(){
     if (speed >= 0){
       climber.climber_set(speed, true);
     }
-
+ 
     if (speed <= 0){
       climber.climber_set(speed, false);
     }
   }
 
   
-
+  public void limelight(){
+    this.limelight.getValues();
+    
+  }
 
 
   /**
@@ -401,7 +413,11 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    //Joystick Right = new Joystick(1);
+    //JoystickButton RT = new JoystickButton(Right, 3);
+    //RT.whenPressed(new PID_test().andThen(new Position_Scheduler()));
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

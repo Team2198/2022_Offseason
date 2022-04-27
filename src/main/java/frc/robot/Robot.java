@@ -5,6 +5,7 @@
 package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -47,11 +48,7 @@ public class Robot extends TimedRobot {
     // Creates UsbCamera and MjpegServer [1] and connects them
     CameraServer.startAutomaticCapture();
     
-    // Creates the CvSink and connects it to the UsbCamera
-    CvSink cvSink = CameraServer.getVideo();
-    
-    // Creates the CvSource and MjpegServer [2] and connects them
-    CvSource outputStream = CameraServer.putVideo("Blur", 640, 480);
+
     
     this.m_robotContainer = new RobotContainer();
     //this.timer = new Timer();
@@ -74,12 +71,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     
-
+    
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -132,9 +130,11 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
+    m_robotContainer.limelight();
     m_robotContainer.get_val();
     m_robotContainer.Climber_status();
     m_robotContainer.PowerElevator();
+    m_robotContainer.trig_shooter();
 
 
 
