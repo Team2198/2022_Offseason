@@ -284,7 +284,7 @@ public void reset_timer(){
     this.elevator.setEle(0);
     this.elevator.setSh(false);
     timer.stop();
-    timer.reset();
+    timer.reset();//wfjhfrerhkghgkjghg
     timer.start();
   }
 
@@ -402,7 +402,7 @@ public void reset_timer(){
 
   
   public void limelight(){
-    this.limelight.getValues();
+    this.limelight.getX();
     
   }
 
