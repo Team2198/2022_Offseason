@@ -94,18 +94,10 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.reset_timer();
+    var m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     //m_robotContainer.calibrateGyro();
     //SmartDashboard.putNumber("curr timer", timer.get());
     //timer.start();
-  }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {
-    
-    //m_robotContainer.auto_two();
-    m_robotContainer.auto_two();
-    // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
@@ -113,16 +105,30 @@ public class Robot extends TimedRobot {
 
   }
 
+  /** This function is called periodically during autonomous. */
+  @Override
+  public void autonomousPeriodic() {
+    CommandScheduler.getInstance().run();
+    //m_robotContainer.auto_two();
+    
+    // schedule the autonomous command (example)
+    
+
+  }
+
   @Override
   public void teleopInit() {
+    
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    //if (m_autonomousCommand != null) {
-      //m_autonomousCommand.cancel();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.cancel();
 
+    }
     //}
+    //CommandScheduler.getInstance().cancelAll();
     
     
   }
@@ -135,6 +141,7 @@ public class Robot extends TimedRobot {
     m_robotContainer.Climber_status();
     m_robotContainer.PowerElevator();
     m_robotContainer.trig_shooter();
+    CommandScheduler.getInstance().run();
 
 
 

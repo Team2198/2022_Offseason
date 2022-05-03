@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;//ojfhorklfwejerkjgekjggtej
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Limelight_programming;
 import frc.robot.commands.PID_test;
+import frc.robot.commands.Position;
 import frc.robot.commands.Position_Scheduler;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
@@ -49,7 +50,7 @@ public class RobotContainer {
   private Gyro_Programming gyro = new Gyro_Programming();
   double prevAngle;
   private final Limelight_programming limelight;
-  
+  private final PID_test pid = new PID_test();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -410,7 +411,9 @@ public void reset_timer(){
 
 
   public Command getAutonomousCommand() {
-      }
+      return pid;
+  
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -420,8 +423,8 @@ public void reset_timer(){
    */
   private void configureButtonBindings() {
     Joystick Right = new Joystick(1);
-    JoystickButton RT = new JoystickButton(Right, 3);
-    //RT.whenPressed(new PID_test().andThen(new Position_Scheduler()));
+    JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
+    RB.whenPressed(new Position());
   }
 
   /**
