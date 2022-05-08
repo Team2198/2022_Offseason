@@ -428,7 +428,7 @@ public void reset_timer(){
     
     JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
     RB.whenPressed(
-      new SequentialCommandGroup(new find_target(), new Position()
+      new SequentialCommandGroup(new find_target(driveTrain), new Position(driveTrain, limelight, gyro)
       )
     );
   }

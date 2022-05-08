@@ -14,8 +14,8 @@ public class Position extends CommandBase{
     private final Gyro_Programming gyro = new Gyro_Programming();
     double offset;
     double angle_needed;
-    public Position() {
-        driveTrain = new DriveTrain();
+    public Position(DriveTrain drive, Limelight_programming lime, Gyro_Programming g) {
+        driveTrain = drive;
         addRequirements(driveTrain);
         addRequirements(limelight);
         addRequirements(gyro);
