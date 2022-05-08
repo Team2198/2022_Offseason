@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.reset_timer();
-    var m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_robotContainer.getAutonomousCommand();
     //m_robotContainer.calibrateGyro();
     //SmartDashboard.putNumber("curr timer", timer.get());
     //timer.start();

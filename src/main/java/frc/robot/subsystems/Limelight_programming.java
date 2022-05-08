@@ -17,14 +17,15 @@ public class Limelight_programming extends SubsystemBase{
         NetworkTableEntry tx = table.getEntry("tx");
         NetworkTableEntry ty = table.getEntry("ty");
         NetworkTableEntry ta = table.getEntry("ta");
-        
+        NetworkTableEntry tv = table.getEntry("tv");
 //read values periodically
         double x = tx.getDouble(0.0);
         double y = ty.getDouble(0.0);
         double area = ta.getDouble(0.0);
+        double target_found =  tv.getDouble(0.0);
 
 //post to smart dashboard periodically
-        double [] values = {x, y, area};   
+        double [] values = {x, y, area, target_found};   
 
         SmartDashboard.putNumber("LimelightX", x);
         SmartDashboard.putNumber("LimelightY", y);

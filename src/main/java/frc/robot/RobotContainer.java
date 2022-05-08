@@ -7,6 +7,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -22,6 +23,7 @@ import frc.robot.subsystems.Limelight_programming;
 import frc.robot.commands.PID_test;
 import frc.robot.commands.Position;
 import frc.robot.commands.Position_Scheduler;
+import frc.robot.commands.find_target;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Gyro_Programming;
@@ -50,7 +52,7 @@ public class RobotContainer {
   private Gyro_Programming gyro = new Gyro_Programming();
   double prevAngle;
   private final Limelight_programming limelight;
-  private final PID_test pid = new PID_test();
+  
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -411,7 +413,7 @@ public void reset_timer(){
 
 
   public Command getAutonomousCommand() {
-      return pid;
+      return new PID_test();
   
   }
 
@@ -423,8 +425,12 @@ public void reset_timer(){
    */
   private void configureButtonBindings() {
     Joystick Right = new Joystick(1);
+    
     JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
-    RB.whenPressed(new Position());
+    RB.whenPressed(
+      new SequentialCommandGroup(new find_target(), new Position()
+      )
+    );
   }
 
   /**
