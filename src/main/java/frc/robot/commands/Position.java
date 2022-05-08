@@ -31,17 +31,24 @@ public class Position extends CommandBase{
 
     @Override
       public void execute() {
+        
         driveTrain.setMotor(0, pid_controller.calculate(gyro.gyro_angle(), angle_needed));//120 is 10 feet in inches
       }
     
       @Override
       public boolean isFinished() {
-        if (this.pid_controller.atSetpoint()){
+        if (Math.abs(offset) <= 2){
           this.pid_controller.reset();
+          driveTrain.setMotor(0, 0);
         
           return true;
         }
         
         return false;
       }
+
+
+
+      @Override
+      public void end(boolean interrupted) {}
 }
