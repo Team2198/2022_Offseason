@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-
+import frc.robot.commands.shooter;
+import frc.robot.commands.turn;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,7 +24,9 @@ import frc.robot.subsystems.Limelight_programming;
 import frc.robot.commands.PID_test;
 import frc.robot.commands.Position;
 import frc.robot.commands.Position_Scheduler;
+import frc.robot.commands.drive;
 import frc.robot.commands.find_target;
+import frc.robot.commands.shooter;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Gyro_Programming;
@@ -413,8 +416,9 @@ public void reset_timer(){
 
 
   public Command getAutonomousCommand() {
-      return new PID_test();
-  
+      return new shooter(driveTrain, elevator).withTimeout(5).andThen(new turn(driveTrain, gyro, intake, elevator, 180)).andThen(new drive(driveTrain).withTimeout(5));
+      
+
   }
 
   /**
@@ -441,5 +445,5 @@ public void reset_timer(){
   //public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     //return m_autoCommand;
-  //}
+  //})
 }

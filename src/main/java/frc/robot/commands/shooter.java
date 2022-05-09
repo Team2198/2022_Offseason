@@ -15,14 +15,14 @@ import frc.robot.subsystems.Elevator;
 public class shooter extends CommandBase {
   /** Creates a new shooter. */
 
-  double m_time;
-  WaitCommand wait;
+  
+  
   private final DriveTrain driveTrain;
   private final PIDController pid_controller = new PIDController(0.5, 0, 0);
   private final Elevator elevator_shooter;
 
-  public shooter(DriveTrain drive,  Elevator ele, double time) {
-    m_time = time;
+  public shooter(DriveTrain drive,  Elevator ele) {
+
     driveTrain = drive;
     elevator_shooter = ele;
     addRequirements(elevator_shooter);
@@ -37,7 +37,7 @@ public class shooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    wait = new WaitCommand(m_time);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -54,12 +54,6 @@ public class shooter extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (wait.isFinished() == true){
-      elevator_shooter.setEle(0);
-      elevator_shooter.setSh(false);
-      return true;
-    }
-    
     return false;
   }
 }

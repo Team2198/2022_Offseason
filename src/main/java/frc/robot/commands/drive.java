@@ -14,9 +14,9 @@ public class drive extends CommandBase {
 
   DriveTrain driveTrain;
   Elevator elevator;
-  public drive(DriveTrain drive, double time) {
+  public drive(DriveTrain drive) {
 
-    WaitCommand wsa
+    
     driveTrain= drive;
     
     // Use addRequirements() here to declare subsystem dependencies.
