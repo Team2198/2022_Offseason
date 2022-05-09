@@ -416,8 +416,9 @@ public void reset_timer(){
 
 
   public Command getAutonomousCommand() {
-      return new shooter(driveTrain, elevator).withTimeout(5).andThen(new turn(driveTrain, gyro, intake, elevator, 180)).andThen(new drive(driveTrain).withTimeout(5));
-      
+    return new turn(driveTrain, gyro, intake, elevator, 180);
+    //return new shooter(driveTrain, elevator).withTimeout(5).andThen(new turn(driveTrain, gyro, intake, elevator, 180)).andThen(new drive(driveTrain).withTimeout(5));
+
 
   }
 
@@ -428,8 +429,6 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    Joystick Right = new Joystick(1);
-    
     JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
     RB.whenPressed(
       new SequentialCommandGroup(new find_target(driveTrain), new Position(driveTrain, limelight, gyro)
