@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.Gyro_Programming;
 import frc.robot.subsystems.Intake;
 
@@ -27,7 +28,7 @@ public class turn extends CommandBase {
   public turn(DriveTrain drive, Gyro_Programming gyr, Intake inta, Elevator ele, double ang) {
     driveTrain = drive;
     gyro = gyr;
-    pid = new PIDController(0.5, 0,0);
+    pid = new PIDController(0.3, 0,0);
     angle = ang;
     elevator = ele;
     intake = inta;
@@ -41,14 +42,17 @@ public class turn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    offset = gyro.gyro_angle() * 18/360;
+    SmartDashboard.putBoolean("Turning", true);
+    offset = -(gyro.gyro_angle() * 18/360);
     setpoint = angle + offset;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveTrain.setMotor(0, pid.calculate(gyro.gyro_angle(), setpoint));//
+    driveTrain.setMotor(0, -pid.calculate(gyro.gyro_angle(), setpoint));//
+    SmartDashboard.putNumber("angle read", gyro.gyro_angle());
+    
 
   }
 

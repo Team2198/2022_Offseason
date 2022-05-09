@@ -53,8 +53,8 @@ public class Elevator extends SubsystemBase {
 
    public void setSh(boolean b){
       if (b){
-        SRight.set(0.3);
-        SLeft.set(0.3);
+        SRight.set(0.5);
+        SLeft.set(0.5);
         
       }
       else{

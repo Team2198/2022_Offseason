@@ -104,6 +104,12 @@ public class RobotContainer {
     }  
   }
 
+  //m_robotContainer.calibrateGyro();\
+
+  public void calibrateGyro(){
+    gyro.calibrate_gyro();
+  }
+
   public void calibrate(){
     gyro.calibrate_gyro();
   }
@@ -416,6 +422,7 @@ public void reset_timer(){
 
 
   public Command getAutonomousCommand() {
+    SmartDashboard.putBoolean("command", true);
     return new turn(driveTrain, gyro, intake, elevator, 180);
     //return new shooter(driveTrain, elevator).withTimeout(5).andThen(new turn(driveTrain, gyro, intake, elevator, 180)).andThen(new drive(driveTrain).withTimeout(5));
 
@@ -429,11 +436,11 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
+    /* JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
     RB.whenPressed(
       new SequentialCommandGroup(new find_target(driveTrain), new Position(driveTrain, limelight, gyro)
       )
-    );
+    ); */
   }
 
   /**

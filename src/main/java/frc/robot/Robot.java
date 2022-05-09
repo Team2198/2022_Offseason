@@ -94,8 +94,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.reset_timer();
-    m_robotContainer.getAutonomousCommand();
-    //m_robotContainer.calibrateGyro();
+    CommandScheduler.getInstance().schedule(m_robotContainer.getAutonomousCommand());
+    m_robotContainer.calibrateGyro();
     //SmartDashboard.putNumber("curr timer", timer.get());
     //timer.start();
     if (m_autonomousCommand != null) {
@@ -108,7 +108,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    CommandScheduler.getInstance().run();
+    //CommandScheduler.getInstance().run();
     //m_robotContainer.auto_two();
     
     // schedule the autonomous command (example)
