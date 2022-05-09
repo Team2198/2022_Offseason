@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Elevator;
 
@@ -13,9 +14,9 @@ public class drive extends CommandBase {
 
   DriveTrain driveTrain;
   Elevator elevator;
-  public drive(DriveTrain drive) {
+  public drive(DriveTrain drive, double time) {
 
-
+    WaitCommand wsa
     driveTrain= drive;
     
     // Use addRequirements() here to declare subsystem dependencies.
