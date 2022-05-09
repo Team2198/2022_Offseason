@@ -41,7 +41,7 @@ public class turn extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    offset = gyro.gyro_angle();
+    offset = gyro.gyro_angle() * 18/360;
     setpoint = angle + offset;
   }
 
