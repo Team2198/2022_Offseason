@@ -47,7 +47,7 @@ public class RobotContainer {
   private final DriveTrain driveTrain;  
   private final Intake intake;
   private final XboxController xboxController;
-  private final XboxController xboxController2;
+  //private final XboxController xboxController2;
   private final Climber climber;
   private final Elevator elevator;
   private Timer timer;
@@ -67,7 +67,7 @@ public class RobotContainer {
     this.intake = new Intake();
     this.climber = new Climber();
     this.elevator = new Elevator();
-    this.xboxController2 = new XboxController(1);
+    //this.xboxController2 = new XboxController(1);
     this.limelight = new Limelight_programming();
     //
     this.timer = new Timer();
@@ -319,9 +319,9 @@ public void reset_timer(){
   }
 
   public void trig_shooter(){
-    if(xboxController2.getRightTriggerAxis()> 0.1){
-      elevator.setSh(true);
-    }
+    //if(xboxController2.getRightTriggerAxis()> 0.1){
+      //elevator.setSh(true);
+    //}
 
     /* if (xboxController2.getLeftTriggerAxis() > 0.1){
       //if(sensor.detectColor()){
@@ -363,7 +363,7 @@ public void reset_timer(){
     elevator.setIntake(false);
   }
 
-  if (xboxController2.getAButton()){
+  /* if (xboxController2.getAButton()){
     elevator.setSh(true);
   } 
   if(xboxController2.getXButton()){
@@ -387,7 +387,7 @@ public void reset_timer(){
     SmartDashboard.putBoolean("on", true);
   }
   
-  elevator.setEle(xboxController2.getRightY()*0.80);
+  elevator.setEle(xboxController2.getRightY()*0.80); */
   
   
   
@@ -404,14 +404,14 @@ public void reset_timer(){
 
   
   public void Climber_status(){
-    double speed = xboxController2.getLeftY()*0.6;
+    /* double speed = xboxController2.getLeftY()*0.6;
     if (speed >= 0){
       climber.climber_set(speed, true);
     }
  
     if (speed <= 0){
       climber.climber_set(speed, false);
-    }
+    } */
   }
 
   
@@ -436,11 +436,13 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    /* JoystickButton RB = new JoystickButton(xboxController, XboxController.Button.kRightBumper.value);
+    
+    Joystick joystick = new Joystick(1);
+    JoystickButton RB = new JoystickButton(joystick, 6);
     RB.whenPressed(
-      new SequentialCommandGroup(new find_target(driveTrain), new Position(driveTrain, limelight, gyro)
-      )
-    ); */
+      new turn(driveTrain, gyro, intake, elevator, 180)
+    );
+       
   }
 
   /**
