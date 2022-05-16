@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_robotContainer.reset_timer();
-    CommandScheduler.getInstance().schedule(m_robotContainer.getAutonomousCommand());
+    //CommandScheduler.getInstance().schedule(m_robotContainer.getAutonomousCommand());
     m_robotContainer.calibrateGyro();
     //SmartDashboard.putNumber("curr timer", timer.get());
     //timer.start();
@@ -136,12 +136,12 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    m_robotContainer.limelight();
-    m_robotContainer.get_val();
-    m_robotContainer.Climber_status();
-    m_robotContainer.PowerElevator();
-    m_robotContainer.trig_shooter();
-    CommandScheduler.getInstance().run();
+    //m_robotContainer.limelight();
+    //m_robotContainer.get_val();
+    //m_robotContainer.Climber_status();
+    //m_robotContainer.PowerElevator();
+    //m_robotContainer.trig_shooter();
+    
 
 
 

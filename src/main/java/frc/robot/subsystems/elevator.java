@@ -55,6 +55,7 @@ public class Elevator extends SubsystemBase {
       if (b){
         SRight.set(0.5);
         SLeft.set(0.5);
+        SmartDashboard.putBoolean("hellohellohellohello", true);
         
       }
       else{
@@ -84,12 +85,15 @@ public class Elevator extends SubsystemBase {
         SRight.set(speed);
         SLeft.set(speed);
    }
+   
    public void setEle(double speed){
-      leftEncoder.setVelocityConversionFactor(6*Math.PI);
+      /* leftEncoder.setVelocityConversionFactor(6*Math.PI);
       double velocity = leftEncoder.getVelocityConversionFactor();
       if (velocity > 0.5){
          EOne.set(speed);   
-      } 
+      }  */
+      SmartDashboard.putBoolean("hellohello", true);
+      EOne.set(speed);
    }
 
    public void revert_setSh(boolean b){

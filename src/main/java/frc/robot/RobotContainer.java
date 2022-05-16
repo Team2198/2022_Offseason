@@ -8,6 +8,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -22,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;//ojfhorklfwejerkjgekjggtej
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Limelight_programming;
 import frc.robot.commands.PID_test;
+import frc.robot.commands.driveForward;
 import frc.robot.commands.Position;
 import frc.robot.commands.Position_Scheduler;
 import frc.robot.commands.drive;
@@ -46,23 +48,24 @@ public class RobotContainer {
 
   private final DriveTrain driveTrain;  
   private final Intake intake;
-  private final XboxController xboxController;
+  //private final XboxController xboxController;
   //private final XboxController xboxController2;
-  private final Climber climber;
-  private final Elevator elevator;
-  private Timer timer;
-  private final Sensor sensor;
-  private Gyro_Programming gyro = new Gyro_Programming();
+  final Climber climber;
+  final Elevator elevator;
+  Timer timer;
+  final Sensor sensor;
+  Gyro_Programming gyro = new Gyro_Programming();
   double prevAngle;
-  private final Limelight_programming limelight;
-  
+  final Limelight_programming limelight;
+  Joystick joystick = new Joystick(1);
+  JoystickButton RB = new JoystickButton(joystick, 6);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindingsd
     
     configureButtonBindings();
-    this.xboxController = new XboxController(0);
+    //this.xboxController = new XboxController(0);
     this.driveTrain = new DriveTrain();
     this.intake = new Intake();
     this.climber = new Climber();
@@ -309,7 +312,7 @@ public void reset_timer(){
   }
 
   public void get_val(){
-    driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX()*0.75);
+    //driveTrain.setMotor(xboxController.getLeftY(), xboxController.getRightX()*0.75);
   }
 
   public void auto_elevator(){
@@ -341,7 +344,7 @@ public void reset_timer(){
 
   public void PowerElevator(){
   
-  if (xboxController.getLeftBumperPressed()){
+  /* if (xboxController.getLeftBumperPressed()){
     
     intake.toggleIntake(false);
     elevator.setIntake(true);
@@ -361,7 +364,7 @@ public void reset_timer(){
   } 
   if (xboxController.getBButton()){
     elevator.setIntake(false);
-  }
+  } */
 
   /* if (xboxController2.getAButton()){
     elevator.setSh(true);
@@ -421,13 +424,13 @@ public void reset_timer(){
   }
 
 
-  public Command getAutonomousCommand() {
-    SmartDashboard.putBoolean("command", true);
-    return new turn(driveTrain, gyro, intake, elevator, 180);
+  //public Command getAutonomousCommand() {
+    //SmartDashboard.putBoolean("command", true);
+    //return new turn(driveTrain, gyro, elevator, 180);
     //return new shooter(driveTrain, elevator).withTimeout(5).andThen(new turn(driveTrain, gyro, intake, elevator, 180)).andThen(new drive(driveTrain).withTimeout(5));
+    //return null;
 
-
-  }
+  //}
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -436,12 +439,15 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    
-    Joystick joystick = new Joystick(1);
-    JoystickButton RB = new JoystickButton(joystick, 6);
     RB.whenPressed(
+    
+    new turn(driveTrain, gyro, elevator, 180)
+      
+      );
+    
+    /* RB.whenPressed(
       new turn(driveTrain, gyro, intake, elevator, 180)
-    );
+    ); */
        
   }
 
