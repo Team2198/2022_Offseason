@@ -35,7 +35,7 @@ public class turn extends CommandBase {
     angle = ang;
     elevator = ele;
     //intake = inta;
-    addRequirements(driveTrain);
+    //addRequirements(driveTrain);
     addRequirements(gyro);
     addRequirements(elevator);
     
@@ -59,6 +59,7 @@ public class turn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     driveTrain.setMotor(0, -pid.calculate(gyro.gyro_angle(), setpoint));//
     SmartDashboard.putNumber("angle read", gyro.gyro_angle());
     

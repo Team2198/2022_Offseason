@@ -64,12 +64,12 @@ public class DriveTrain extends SubsystemBase {
         }
         differentialDrive.curvatureDrive(y, xRef+0.15, false);
       }*/
-      SmartDashboard.putNumber("value", y);
+      //SmartDashboard.putNumber("value", y);
 
       differentialDrive.arcadeDrive(y, -x, false);
-      SmartDashboard.putNumber("Y val", y);
+      SmartDashboard.putNumber("Y val", 500);
       SmartDashboard.putNumber("X val", x);
-      //differentialDrive.tankDrive(y, x);
+      differentialDrive.tankDrive(y, x);
       
 
     }

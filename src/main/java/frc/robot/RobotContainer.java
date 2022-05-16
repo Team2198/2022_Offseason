@@ -424,13 +424,13 @@ public void reset_timer(){
   }
 
 
-  //public Command getAutonomousCommand() {
-    //SmartDashboard.putBoolean("command", true);
-    //return new turn(driveTrain, gyro, elevator, 180);
+  public Command getAutonomousCommand() {
+    SmartDashboard.putBoolean("command", true);
+    return new turn(driveTrain, gyro, elevator, 180);
     //return new shooter(driveTrain, elevator).withTimeout(5).andThen(new turn(driveTrain, gyro, intake, elevator, 180)).andThen(new drive(driveTrain).withTimeout(5));
     //return null;
 
-  //}
+  }
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -443,7 +443,7 @@ public void reset_timer(){
     
     new turn(driveTrain, gyro, elevator, 180)
       
-      );
+    );
     
     /* RB.whenPressed(
       new turn(driveTrain, gyro, intake, elevator, 180)
