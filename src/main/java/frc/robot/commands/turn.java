@@ -62,8 +62,6 @@ public class turn extends CommandBase {
     
     driveTrain.setMotor(0, -pid.calculate(gyro.gyro_angle(), setpoint));//
     SmartDashboard.putNumber("angle read", gyro.gyro_angle());
-    
-
   }
 
   // Called once the command ends or is interrupted.
@@ -80,7 +78,9 @@ public class turn extends CommandBase {
       return true;
     }
     
-    
+    //
+
     return false;
+    
   }
 }
