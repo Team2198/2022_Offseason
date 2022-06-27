@@ -10,12 +10,14 @@ public class Position extends CommandBase{
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final DriveTrain driveTrain;
     private final PIDController pid_controller = new PIDController(0.5, 0, 0);
-    private final Limelight_programming limelight = new Limelight_programming();
-    private final Gyro_Programming gyro = new Gyro_Programming();
+    private final Limelight_programming limelight;
+    private final Gyro_Programming gyro;
     double offset;
     double angle_needed;
     public Position(DriveTrain drive, Limelight_programming lime, Gyro_Programming g) {
         driveTrain = drive;
+        gyro = g;
+        limelight = lime;
         addRequirements(driveTrain);
         addRequirements(limelight);
         addRequirements(gyro);
