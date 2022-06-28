@@ -439,15 +439,17 @@ public void reset_timer(){
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    RB.whenPressed(
+    /* RB.whenPressed(
     
     new turn(driveTrain, gyro, elevator, 180)
       
-    );
-    
-    /* RB.whenPressed(
-      new turn(driveTrain, gyro, intake, elevator, 180)
     ); */
+    
+    RB.whenPressed(
+      new find_target(driveTrain, gyro, limelight).andThen(
+        new Position(driveTrain, limelight, gyro)
+      )
+    ); 
        
   }
 

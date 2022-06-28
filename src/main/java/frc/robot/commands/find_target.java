@@ -14,15 +14,17 @@ public class find_target extends CommandBase {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final DriveTrain driveTrain;
   private final PIDController pid_controller = new PIDController(0.5, 0, 0);
-  private final Limelight_programming limelight = new Limelight_programming();
-  private final Gyro_Programming gyro = new Gyro_Programming();
+  private final Limelight_programming limelight;
+  private final Gyro_Programming gyro;
   double tv;
   boolean target = false;
 
 
-  public find_target(DriveTrain drive) {
+  public find_target(DriveTrain drive, Gyro_Programming gyr, Limelight_programming lime) {
     // Use addRequirements() here to declare subsystem dependencies.
-    driveTrain = drive;
+      driveTrain = drive;
+      limelight = lime;
+      gyro = gyr;
       addRequirements(driveTrain);
       addRequirements(limelight);
       addRequirements(gyro);
