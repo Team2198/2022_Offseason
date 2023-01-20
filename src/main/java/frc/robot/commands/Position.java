@@ -27,14 +27,14 @@ public class Position extends CommandBase{
     @Override
       public void initialize() {
         offset = limelight.getValues()[0]; 
-        angle_needed = gyro.gyro_angle() + offset;
+        angle_needed = gyro.yaw_angle() + offset;
 
       }
 
     @Override
       public void execute() {
         
-        driveTrain.setMotor(0, pid_controller.calculate(gyro.gyro_angle(), angle_needed));//120 is 10 feet in inches
+        driveTrain.setMotor(0, pid_controller.calculate(gyro.yaw_angle(), angle_needed));//120 is 10 feet in inches
       }
     
       @Override

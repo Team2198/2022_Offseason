@@ -51,7 +51,7 @@ public class turn extends CommandBase {
   @Override
   public void initialize() {
     SmartDashboard.putBoolean("Turning", true);
-    offset = gyro.gyro_angle();
+    offset = gyro.yaw_angle();
     setpoint = angle*18/360 + offset;
     SmartDashboard.putNumber("setpoint", setpoint);
   }
@@ -60,8 +60,8 @@ public class turn extends CommandBase {
   @Override
   public void execute() {
     
-    driveTrain.setMotor(0, -pid.calculate(gyro.gyro_angle(), setpoint));//
-    SmartDashboard.putNumber("angle read", gyro.gyro_angle());
+    driveTrain.setMotor(0, -pid.calculate(gyro.yaw_angle(), setpoint));//
+    SmartDashboard.putNumber("angle read", gyro.yaw_angle());
   }
 
   // Called once the command ends or is interrupted.

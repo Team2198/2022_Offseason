@@ -121,7 +121,7 @@ public class RobotContainer {
     dir = -dir; // invert because gyro is inverted
     double scale = 0.0369444444444444;
     dir = dir*scale;
-    double curAngle = gyro.gyro_angle(); // 0 = no rotation, - clockwise, + counter-clockwise 
+    double curAngle = gyro.yaw_angle(); // 0 = no rotation, - clockwise, + counter-clockwise 
     double minSpeed = .17; // minimum rotational power required to turn
 
     //double turnRate = -(prevAngle-curAngle); // - is right, + is left
